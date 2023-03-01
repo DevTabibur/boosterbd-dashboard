@@ -13,3 +13,15 @@
 11. profile page e res, dynamic, button gulo kaj kore na
 12. change password e res, dynamic, button gulo kaj kore na
 13. permission page e res, dynamic, button gulo kaj kore na
+
+# PROBLEMS (ADMIN)
+
+1. createAdAccount page e dynamic, button gulo kaj kore na
+2. AdAccountRequestsView page e res, dynamic, button gulo kaj kore na
+3. transactions page e res, dynamic, button gulo kaj kore na
+4. business manager page e res, dynamic, button gulo kaj kore na
+5. Add Service page e res, dynamic, button gulo kaj kore na
+6. Manage Users page e res, dynamic, button gulo kaj kore na
+7. Manage role page e res, dynamic, button gulo kaj kore na
+8. giving permission page e res, dynamic, button gulo kaj kore na
+9. currency page e res, dynamic, button gulo kaj kore na

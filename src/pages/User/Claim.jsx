@@ -4,7 +4,7 @@ const Claim = () => {
     const [showBulk, setShowBulk] = useState(false);
     const [showShort, setShowShort] = useState(false);
     return (
-        <div className='container mx-auto px-4 mt-24'>
+        <div className='container mx-auto  mt-24'>
 
             <div className="flex justify-between mt-10">
                 <div className="w-[19px] h-[15px]">
@@ -155,32 +155,33 @@ const Claim = () => {
                 </div>
             </div>
 
+            <div className='overflow-x-auto'>
+                <table className="w-full  bg-gray-200 px-4 rounded-lg  mt-[26px]">
+                    <thead className="text-white px-4">
+                        <tr className="text-black  sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 font-medium">
+                            <th className=" text-left text-[#717D82]">
+                                <div className="w-[15px] h-[15px]">
+                                    <input type="checkbox" className="w-full h-full" />
+                                </div>
+                            </th>
+                            <th className="p-3 text-left text-[#717D82]">Name</th>
+                            <th className="p-3 text-left text-[#717D82]">
+                                Account Name
+                            </th>
+                            <th className="p-3 text-left text-[#717D82]">Ad Acount ID</th>
+                            <th className="p-3 text-left text-[#717D82]">Claim Amount</th>
+                            <th className="p-3 text-left text-[#717D82]">Return Method</th>
 
-            <table className="w-full  bg-gray-200 px-4 rounded-lg  mt-[26px]">
-                <thead className="text-white px-4">
-                    <tr className="text-black  sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 font-medium">
-                        <th className=" text-left text-[#717D82]">
-                            <div className="w-[15px] h-[15px]">
-                                <input type="checkbox" className="w-full h-full" />
-                            </div>
-                        </th>
-                        <th className="p-3 text-left text-[#717D82]">Name</th>
-                        <th className="p-3 text-left text-[#717D82]">
-                            Account Name
-                        </th>
-                        <th className="p-3 text-left text-[#717D82]">Ad Acount ID</th>
-                        <th className="p-3 text-left text-[#717D82]">Claim Amount</th>
-                        <th className="p-3 text-left text-[#717D82]">Return Method</th>
-
-                        <th className="p-3 text-left text-[#717D82]">Status</th>
-                    </tr>
-                </thead>
-                <tbody className="flex-1 sm:flex-none">
-                    <TableRow />
-                    <TableRow />
-                    <TableRow />
-                </tbody>
-            </table>
+                            <th className="p-3 text-left text-[#717D82]">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody className="flex-1 sm:flex-none">
+                        <TableRow />
+                        <TableRow />
+                        <TableRow />
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }

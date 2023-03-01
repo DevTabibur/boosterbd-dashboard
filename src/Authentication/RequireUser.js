@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useActiveUser from "../Hooks/useActiveUser";
-import Loader from "../Shared/Loader/Loader";
+import Loader from '../components/Loader/Loader.jsx'
 import jwt_decode from "jwt-decode";
 import Swal from "sweetalert2";
 

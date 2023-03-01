@@ -1,0 +1,68 @@
+.currancycard {
+    max-width: 371px;
+    height: 377px;
+    border-radius: 13px;
+    background: #ffffff;
+    box-shadow: 10.6667px 10.6667px 40.0001px rgba(0, 0, 0, 0.07);
+    position: relative;
+    overflow: hidden;
+    font-family: "DM Sans", sans-serif;
+  }
+  
+  .currancycard .head {
+    height: 70.09px;
+    width: 100%;
+    padding: 0px 26px;
+    display: flex;
+    align-items: center;
+    background: rgba(135, 86, 239, 0.5);
+  }
+  
+  .currancycard .head h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 31px;
+    color: #1a1a1a;
+  }
+  
+  .currancycard .content {
+    padding: 10px 26px;
+  }
+  
+  .currancycard .content span {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  
+  .currancycard .content .hr {
+    margin: 10px 0px;
+  }
+  
+  .currancycard .content .btn-1 {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    background-color: #465eed;
+  }
+  
+  .currancycard .content .btn-2 {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    background-color: #47c363;
+  }
+  
+  .currancycard .content .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .hr {
+    width: 100%;
+    height: 2px;
+    background-color: #e3e3e3;
+  }
+  
