@@ -10,23 +10,23 @@ const useUser = () => {
             method: "GET",
             headers: {
                 "content-type": "application/json",
-                authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                // authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
         })
             .then((res) => res.json())
             .then((data) => {
-                // console.log("inside use users hooks", data);
+                // console.log("inside use users hooks", data.data);
                 if (data.code === 400) {
                     Swal.fire({
                         title: data?.status,
                         text: data?.message,
                         icon: "error",
                     });
-                    localStorage.removeItem("accessToken");
+                    // localStorage.removeItem("accessToken");
                 }
                 setUsers(data?.data);
             });
-    }, [users]);
+    }, []);
 
     return [users];
 };

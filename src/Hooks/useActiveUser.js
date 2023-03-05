@@ -10,11 +10,14 @@ const useActiveUser = () => {
 
   useEffect(() => {
     const getToken = localStorage.getItem("accessToken");
-    const getTokenDecoded = JSON.parse(getToken);
+    // console.log('getToken', getToken)
+    // const getTokenDecoded = JSON.parse(getToken);
+    // console.log('getTokenDecoded', getTokenDecoded)
     setIsLoading(true);
     if (getToken !== null && getToken !== undefined) {
-      const decoded = jwt_decode(getTokenDecoded);
+      const decoded = jwt_decode(getToken);
       const id = decoded.id;
+      // console.log('id', id)
 
       if (id !== undefined) {
         const url = `http://localhost:5000/api/v1/user/register/${id}`;

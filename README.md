@@ -25,3 +25,14 @@
 7. Manage role page e res, dynamic, button gulo kaj kore na
 8. giving permission page e res, dynamic, button gulo kaj kore na
 9. currency page e res, dynamic, button gulo kaj kore na
+
+# PROBLEMS (HOME PAGE)
+
+\*\* home page e sob component responsive hoi nai..skills component rendering e problem hoi. obviously responsive and skill component ta correct korte hobe...compoent gulo rendering er time ee warning ase, console ee...segula remove kora lagbe
+
+# PROBLEMS
+
+1. user jodi 1st time use kore, ba keu jdi application theke localStorage theke color / theme setting delete dei, taile first time, sha kono theme toggle korte gelei, sparkLineError khasse... eita solve korte hobe..
+2. useAdmin and useUser er dependency sorai disi. project crush korte pare bole
+3. activeUser ee dependecy dibo.
+

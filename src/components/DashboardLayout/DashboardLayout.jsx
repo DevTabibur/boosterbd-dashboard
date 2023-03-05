@@ -19,7 +19,6 @@ const Dashboard = ({ children }) => {
         themeSettings,
         setThemeSettings,
     } = useStateContext();
-    console.log('activeMenu', activeMenu)
 
     useEffect(() => {
         const currentThemeColor = localStorage.getItem('colorMode');

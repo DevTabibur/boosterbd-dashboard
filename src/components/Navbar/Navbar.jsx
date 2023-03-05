@@ -1,7 +1,14 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import useActiveUser from "../../Hooks/useActiveUser";
+import useUser from "../../Hooks/useUser";
+import Loader from "../Loader/Loader";
 import Subnav from "./SubNav";
 // import logo from "../../assets/img/Group 1.png";
 const Navbar = () => {
+    const [activeUser, isLoading] = useActiveUser();
+    console.log('activeUser', activeUser)
     const [showNav, setShowNav] = useState(false);
     const change = () => {
         if (window.scrollY >= 50) {
@@ -11,6 +18,19 @@ const Navbar = () => {
         }
     };
     window.addEventListener("scroll", change);
+
+    const logout = () => {
+        localStorage.removeItem("accessToken");
+        Swal.fire({
+            title: "Logout Successfully",
+            icon: "success",
+        });
+        navigate("/");
+        window.location.reload();
+    };
+    // if (isLoading) {
+    //     return <Loader />
+    // }
     return (
         <div className="sticky top-0">
             <nav
@@ -32,11 +52,15 @@ const Navbar = () => {
                         <div className="">
                             <ul className="flex gap-[10px] ">
                                 <button className="bg-[#F2F3F5] w-[102px] h-10 rounded-[7px] font-arial">
-                                    Log in
+                                    {activeUser?.phoneNumber ? <Link to="/dashboard">Dashboard</Link> : <Link to="/login">Log in</Link>}
+
                                 </button>
-                                <button className="bg-[#F4A72D] w-28 h-10 rounded-[7px] text-white font-bold">
-                                    Sign up
-                                </button>
+                                {activeUser?.phoneNumber &&
+                                    <button onClick={logout} className="bg-[#F4A72D] w-28 h-10 rounded-[7px] text-white font-bold">
+                                        Log out
+                                    </button>
+                                }
+
                             </ul>
                         </div>
                     </div>

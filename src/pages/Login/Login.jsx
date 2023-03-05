@@ -13,7 +13,6 @@ import useActiveUser from '../../Hooks/useActiveUser';
 
 
 const Login = () => {
-
   const [activeUser, isLoading] = useActiveUser();
   const [registerLoading, setRegisterLoading] = useState(false);
   const [isActive, setIsActive] = useState("");
@@ -61,7 +60,7 @@ const Login = () => {
       });
     } else {
       setLoading(true);
-      const url = `https://boosterbd-server.onrender.com/api/v1/user/register`;
+      const url = `http://localhost:5000/api/v1/user/register`;
       setRegisterLoading(true);
       fetch(url, {
         method: "POST",
@@ -73,7 +72,7 @@ const Login = () => {
         .then((res) => res.json())
         .then((data) => {
           setLoading(false);
-          console.log("data inside register", data);
+          // console.log("data inside register", data);
           if (data.code === 400) {
             Swal.fire({
               title: data.status,
@@ -91,7 +90,6 @@ const Login = () => {
             });
             setDemoPhone(data.data?.phoneNumber);
             setShowOTP(true);
-            // router.push("/");
           }
         });
     }
@@ -103,9 +101,9 @@ const Login = () => {
       phoneNumber: demoPhone,
       password: password,
     };
-    console.log("body", body);
+    // console.log("body", body);
 
-    const url = `https://boosterbd-server.onrender.com/api/v1/user/register/verify`;
+    const url = `http://localhost:5000/api/v1/user/register/verify`;
     fetch(url, {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -113,7 +111,8 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("otp verified", data);
+        // console.log("otp verified", data);
+
         if (data.code === 400) {
           Swal.fire({
             title: data?.status,
@@ -121,17 +120,18 @@ const Login = () => {
             icon: "error",
           });
         } else {
+          localStorage.setItem("accessToken", data.data?.token)
           Swal.fire({
             title: data?.status,
             text: data?.message,
             icon: "success",
           });
-          router.push("/")
+          navigate("/")
         }
       });
   };
 
-  console.log("password", password);
+  // console.log("password", password);
 
   // register loading
   // if (registerLoading) {
@@ -168,7 +168,8 @@ const Login = () => {
                           // forwardRef={otpRef}
                           value={otp}
                           onChange={setOtp}
-                          OTPLength={6}
+                          // OTPLength={6}
+                          numInputs={6}
                           otpType="number"
                           disabled={false}
                           autoFocus

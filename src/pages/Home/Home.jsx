@@ -10,6 +10,7 @@ import Signup from '../../components/Signup/Signup'
 // import Skills from '../../components/Skills/Skills'
 
 const Home = () => {
+
     return (
         <>
             <Navbar />

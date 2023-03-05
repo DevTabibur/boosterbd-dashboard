@@ -148,7 +148,7 @@ input[type="range"]::-moz-focus-outer {
   border: 1px solid #dbdbdb !important;
   border-radius: 5px !important;
   cursor: text !important;
-  padding: 5px !important;
+  /* padding: 5px !important; */
 }
 
 .opt_container input:focus {
@@ -424,3 +424,5 @@ input[type="search"]::-webkit-search-results-decoration {
 .gradient-stop-danger {
   @apply text-red-500;
 }
+
+/* otp */

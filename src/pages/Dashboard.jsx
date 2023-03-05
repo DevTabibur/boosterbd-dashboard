@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { IoIosMore } from 'react-icons/io';
@@ -17,6 +17,7 @@ const DropDown = ({ currentMode }) => (
 
 const Dashboard = () => {
   const { currentColor, currentMode } = useStateContext();
+
 
   return (
     <div className="mt-24">

@@ -39,6 +39,7 @@ import RequireUser from "./Authentication/RequireUser";
 import publicRoutes from "./Router/publicRoutes";
 import privateRoutes from "./Router/privateRoutes";
 import RequireAdmin from "./Authentication/RequireAdmin";
+import Verification from "./pages/Admin/Verification";
 const App = () => {
   const {
     setCurrentColor,
@@ -69,10 +70,10 @@ const App = () => {
           <Route key={idx} path={path} element={<Component />} />
         ))}
 
+        <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
         {/* user routes  */}
-        {/* <Route element={<RequireUser></RequireUser>}> */}
-          {/* <Route path="/" element={<DashboardLayout><Dashboard /></DashboardLayout>} /> */}
-          <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
+        <Route element={<RequireUser></RequireUser>}>
+
           <Route path="/claim" element={<DashboardLayout><Claim /></DashboardLayout>} />
           <Route path="/top-up" element={<DashboardLayout><TopUp /></DashboardLayout>} />
           <Route path="/fund-management" element={<DashboardLayout><FundManagement /></DashboardLayout>} />
@@ -83,9 +84,9 @@ const App = () => {
           <Route path="/order" element={<DashboardLayout><Order /></DashboardLayout>} />
           <Route path="/limit-update" element={<DashboardLayout><LimitUpdate /></DashboardLayout>} />
           <Route path="/payment-method" element={<DashboardLayout><PaymentMethod /></DashboardLayout>} />
-          <Route path="/current-package" element={<DashboardLayout><CurrentPackage /></DashboardLayout>} />
+          <Route path="/package" element={<DashboardLayout><CurrentPackage /></DashboardLayout>} />
           <Route path="/setting" element={<DashboardLayout><Setting /></DashboardLayout>} />
-        {/* </Route> */}
+        </Route>
 
 
 
@@ -102,6 +103,7 @@ const App = () => {
           <Route path="/giving-permission" element={<DashboardLayout><GivingPermission /></DashboardLayout>} />
           <Route path="/currency" element={<DashboardLayout><Currency /></DashboardLayout>} />
           <Route path="/spending-rate" element={<DashboardLayout><SpendingRate /></DashboardLayout>} />
+          <Route path="/verification" element={<DashboardLayout><Verification /></DashboardLayout>} />
         </Route>
 
       </Routes>
