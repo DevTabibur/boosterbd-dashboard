@@ -3,7 +3,7 @@ import React from 'react'
 const Converter = () => {
     return (
         <>
-            <div className="w-full grid grid-cols-4 gap-4 md:w-1/2 bg-slate-100 rounded-md mt-8 px-4 py-6 border border-black">
+            <div className="w-full mx-8 grid grid-cols-4 gap-4 md:w-1/2 bg-slate-100 rounded-md mt-8 px-4 py-6 border border-black">
                 <div className="col-span-4">
                     <h2 className="text-center text-2xl mb-4 font-semibold">
                         Converter

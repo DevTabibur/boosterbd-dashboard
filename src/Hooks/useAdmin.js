@@ -5,22 +5,23 @@ const useAdmin = (user) => {
     const [admin, setAdmin] = useState(false);
     const [adminLoading, setAdminLoading] = useState(true);
     const navigate = useNavigate();
+    // console.log('user', user._id)
 
     useEffect(() => {
-        const email = user?.email;
-        if (email) {
-            const url = `http://localhost:5000/api/v1/user/register/admin/${email}`;
+        const id = user?._id;
+        if (id !==undefined) {
+            const url = `http://localhost:5000/api/v1/user/register/admin/${id}`;
             fetch(url, {
                 method: "GET",
                 headers: {
                     "content-type": "application/json",
-                    authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                    // authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                 },
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log("check admin hooks inside", data.data.role);
-                    if (data.data.role === "admin") {
+                    // console.log("check admin hooks inside", data.data.role);
+                    if (data.data?.role === "admin") {
                         setAdmin(true);
                         setAdminLoading(false);
                     } else {
@@ -28,7 +29,7 @@ const useAdmin = (user) => {
                     }
                 });
         }
-    }, [admin, navigate]);
+    }, [user, navigate]);
     return [admin, adminLoading];
 };
 

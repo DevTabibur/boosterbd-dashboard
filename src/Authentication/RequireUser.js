@@ -27,7 +27,7 @@ const RequireUser = () => {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    // console.log('RequireUser', data)
+                    console.log('RequireUser', data)
                     if (data.code === 403 || data.code === 401 || data.code === 400) {
                         return Swal.fire({
                             title: data?.status,

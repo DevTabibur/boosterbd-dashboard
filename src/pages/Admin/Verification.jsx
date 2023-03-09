@@ -331,7 +331,7 @@ const Modal = ({ user, handleMakeVerified }) => {
 
                             {user?.profile === "verified" ? <button
                                 type="button"
-                                className="inline-block rounded  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-green-700 "
+                                className="inline-block rounded  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-orange-500 "
                                 data-te-ripple-init
                                 data-te-ripple-color="light"
                                 disabled

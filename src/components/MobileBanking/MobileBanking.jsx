@@ -1,158 +1,303 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
-const MobileBanking = () => {
+const MobileBanking = ({ mobileBanking }) => {
+    const [selectedMethod, setSelectedMethod] = useState("");
+    const [selectedPaymentWay, setSelectedPaymentWay] = useState("");
+    const [notify, setNotify] = useState(false)
+    // console.log('mobileBanking', mobileBanking)
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const handleCheckboxChange = (event) => {
+        setSelectedMethod(event.target.value);
+        // console.log('payment method', event.target.value)
+    };
+
+    const handlePaymentWith = (e) => {
+        setSelectedPaymentWay(e.target.value);
+        // console.log('payment way', e.target.value)
+    }
+
+
+    const onSubmit = data => {
+        // console.log(data)
+
+        const formData = new FormData();
+        formData.append("paymentMethod", "Mobile-Banking");
+        formData.append("paymentFor", selectedMethod);
+        formData.append("paymentWith", selectedPaymentWay);
+        formData.append("amountToAdd", data.amountToAdd);
+        formData.append("paidTo", data.paidTo);
+        formData.append("transactionID", data.transactionID);
+        formData.append("senderNumber", data.senderNumber);
+        formData.append("transactionScreenShot", data.transactionScreenShot[0])
+
+        const img = data.transactionScreenShot[0];
+        const validExt = ["png", "jpg", "jpeg", "PNG", "JPG", "JPEG"];
+
+        if (img !== "") {
+            // checking image extension
+            // imageName.jpeg
+            const pos_of_dot = img.name.lastIndexOf(".") + 1;
+            const img_ext = img.name.substring(pos_of_dot);
+            const result = validExt.includes(img_ext);
+
+            if (result === false) {
+                Swal.fire({
+                    title: "Only jpg, png and jpeg files are allowed",
+                    icon: "warning",
+                });
+                return false;
+            }
+            // checking image size
+            else {
+                if (parseFloat(img.size / (1024 * 1024)) >= 2) {
+                    // img size should be under 5 mb
+                    // perform operation
+                    Swal.fire({
+                        title: "File Size must be smaller than 2MB",
+                        icon: "warning",
+                    });
+                    return false;
+                } else {
+                    // console.log("everything is perfect");
+                    // everything is perfect
+                    const url = `http://localhost:5000/api/v1/top-up/mobile-banking`;
+                    fetch(url, {
+                        method: "POST",
+                        headers: {
+                            // authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                        },
+                        body: formData,
+                    })
+                        .then((res) => res.json())
+                        .then((data) => {
+                            // console.log("data posted", data);
+                            if (data.code === 400) {
+                                Swal.fire({
+                                    title: data?.message,
+                                    text: data?.error,
+                                    icon: "error",
+                                });
+                            } else {
+                                setNotify(true)
+                                Swal.fire({
+                                    title: data.status,
+                                    text: data?.message,
+                                    icon: "success",
+                                });
+                                reset();
+                                // window.location.reload();
+                            }
+                        });
+                }
+            }
+        } else {
+            alert("No Image is selected");
+            return false;
+        }
+
+
+    };
     return (
         <>
-            <div className="w-full grid grid-cols-3 gap-4 md:w-1/2 bg-slate-100 rounded-md mt-8 px-4 py-6 border border-black">
-                <div></div>
-                <div className="col-span-2">
-                    <input
-                        className="mr-2 rounded-lg"
-                        type="checkbox"
-                        name="case"
-                        id="MobileBanking"
-                    />
-                    <label className="payment-title" htmlFor="MobileBanking">
-                        Mobile Banking
-                    </label>
-                </div>
+            <div className="mx-2 bg-slate-100 rounded-md mt-8 px-4 py-6 border border-[#92929242] shadow-lg">
+                <h3 className='text-xl font-medium text-center md:my-4'> Mobile Banking</h3>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    {/* payment for */}
+                    <div className='grid md:grid-cols-2  gap-4  '>
+                        <div className="payment-title">Payment For</div>
+                        <div className="">
+                            <input className="mr-2" type="radio" name="" id="Httpool" required defaultValue="Httpool" onChange={handleCheckboxChange} checked={selectedMethod === "Httpool"} />
+                            <label className="payment-title" htmlFor="Httpool">
+                                Httpool
+                            </label>
+                            <input className="ml-8 mr-2" type="radio" name="" id="BDT" required defaultValue="BDT" onChange={handleCheckboxChange} checked={selectedMethod === "BDT"} />
+                            <label className="payment-title" htmlFor="BDT">
+                                BDT
+                            </label>
+                        </div>
+                    </div>
+                    <hr className='my-2' />
+                    {/* payment with */}
+                    <div className='grid md:grid-cols-2  gap-4  '>
+                        <div className="payment-title">Payment With</div>
+                        <div className="">
+                            <div className='grid md:grid-row-2 gap-4'>
+                                <div>
+                                    <input className="mr-2" type="radio" id="bKash" required defaultValue="bKash" onChange={handlePaymentWith} checked={selectedPaymentWay === "bKash"} />
+                                    <label className="payment-title" htmlFor="bKash">
+                                        bKash
+                                    </label>
+                                    <input className="mr-2 ml-8" type="radio" id="Nagad" required defaultValue="Nagad" onChange={handlePaymentWith} checked={selectedPaymentWay === "Nagad"} />
+                                    <label className="payment-title" htmlFor="Nagad">
+                                        Nagad
+                                    </label>
+                                    <input className="mr-2 ml-8" type="radio" id="Rocket" required defaultValue="Rocket" onChange={handlePaymentWith} checked={selectedPaymentWay === "Rocket"} />
+                                    <label className="payment-title" htmlFor="Rocket">
+                                        Rocket
+                                    </label>
+                                </div>
+                                <div>
+                                    <input className="mr-2" type="radio" id="Upay" required defaultValue="Upay" onChange={handlePaymentWith} checked={selectedPaymentWay === "Upay"} />
+                                    <label className="payment-title" htmlFor="Upay">
+                                        Upay
+                                    </label>
+                                    <input className="mr-2 ml-8" type="radio" id="mCash" required defaultValue="mCash" onChange={handlePaymentWith} checked={selectedPaymentWay === "mCash"} />
+                                    <label className="payment-title" htmlFor="mCash">
+                                        mCash
+                                    </label>
+                                    <input className="mr-2 ml-8" type="radio" id="sureCash" required defaultValue="sureCash" onChange={handlePaymentWith} checked={selectedPaymentWay === "sureCash"} />
+                                    <label className="payment-title" htmlFor="sureCash">
+                                        sureCash
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr className='my-2' />
+                    {/* amount to add */}
+                    <div className='grid md:grid-cols-2  gap-4  '>
+                        <div className="payment-title">Amount to Add *</div>
+                        <div className="">
+                            <input
+                                className="w-auto  pl-4 py-2 rounded-md ml-5 border-2 outline-none border-zinc-400"
+                                type="text"
+                                placeholder="20,000"
+                                {...register("amountToAdd", {
+                                    required: {
+                                        value: true,
+                                        message: "This is required"
+                                    }
+                                })}
+                            />
+                            <small className="text-[#FF4B2B] ml-2">
+                                {errors.amountToAdd?.type === "required" && (
+                                    <span className="label-text-alt text-red-500 ">
+                                        {errors.amountToAdd.message}
+                                    </span>)}
+                            </small>
+                        </div>
 
-                <div className="payment-title">Payment For</div>
-                <div className="col-span-2">
-                    <input
-                        className="mr-2 rounded-lg"
-                        type="checkbox"
-                        name=""
-                        id="Httpool-1"
-                    />
-                    <label className="payment-title" htmlFor="Httpool-1">
-                        Httpool
-                    </label>
-                    <input
-                        className="ml-8 mr-2 rounded-lg"
-                        type="checkbox"
-                        name=""
-                        id="BDT"
-                    />
-                    <label className="payment-title" htmlFor="BDT">
-                        BDT
-                    </label>
-                </div>
+                    </div>
+                    <hr className='my-2' />
+                    {/* sender Number */}
+                    <div className='grid md:grid-cols-2  gap-4  '>
+                        <div className="payment-title">Sender Number *</div>
+                        <div className="">
+                            <input
+                                className="w-auto  pl-4 py-2 rounded-md ml-5 border-2 outline-none border-zinc-400"
+                                type="text"
+                                placeholder="+8801312-100100"
+                                {...register("senderNumber", {
+                                    required: {
+                                        value: true,
+                                        message: "This is required"
+                                    },
+                                    pattern: {
+                                        value: /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/,
+                                        message: "This number isn't validate",
+                                    }
+                                })}
+                            />
+                            <small className="text-[#FF4B2B] ml-2">
+                                {errors.senderNumber?.type === "required" && (
+                                    <span className="label-text-alt text-red-500 ">
+                                        {errors.senderNumber.message}
+                                    </span>)}
+                                {errors.senderNumber?.type === "pattern" && (
+                                    <span className="label-text-alt text-red-500 ">
+                                        {errors.senderNumber.message}
+                                    </span>)}
+                            </small>
+                        </div>
 
-                <div></div>
-                <div className="col-span-2">
-                    <input
-                        className="mr-2 rounded-lg"
-                        type="checkbox"
-                        name=""
-                        id="Nagad"
-                    />
-                    <label className="payment-title" htmlFor="Nagad">
-                        Nagad
-                    </label>
-                    <span className="mx-8">
-                        <input
-                            className="mr-2 rounded-lg"
-                            type="checkbox"
-                            name=""
-                            id="bKash"
-                        />
-                        <label className="payment-title" htmlFor="bKash">
-                            bKash
-                        </label>
-                    </span>
-                    <input className="mr-2" type="checkbox" name="" id="Rocket" />
-                    <label className="payment-title" htmlFor="Rocket">
-                        Rocket
-                    </label>
-                </div>
+                    </div>
+                    <hr className='my-2' />
+                    {/* paid to */}
+                    <div className='grid md:grid-cols-2  gap-4  '>
+                        <div className="payment-title">Paid To *</div>
+                        <div className="">
+                            <select
+                                className="w-auto  pl-4 py-2 rounded-md ml-5 border-2 outline-none border-zinc-400"
+                                type="text"
+                                placeholder="+8801312-100100"
+                                {...register("paidTo", {
+                                    required: {
+                                        value: true,
+                                        message: "This is required"
+                                    },
+                                })}
+                            >
+                                <option selected>Please Select</option>
+                                <option value="+88 0123 622 333">+88 0123 622 333</option>
+                                <option value="+88 0123 622 444">+88 0123 622 444</option>
+                            </select>
 
-                <div></div>
-                <div className="col-span-2">
-                    <input className="mr-2" type="checkbox" name="" id="Upay" />
-                    <label className="payment-title" htmlFor="Upay">
-                        Upay
-                    </label>
-                    <span className="mx-8">
-                        <input className="mr-2" type="checkbox" name="" id="mCash" />
-                        <label className="payment-title" htmlFor="mCash">
-                            mCash
-                        </label>
-                    </span>
-                    <input className="mr-2" type="checkbox" name="" id="Sure Cash" />
-                    <label className="payment-title" htmlFor="Sure Cash">
-                        Sure Cash
-                    </label>
-                </div>
+                            <small className="text-[#FF4B2B] ml-2">
+                                {errors.paidTo?.type === "required" && (
+                                    <span className="label-text-alt text-red-500 ">
+                                        {errors.paidTo.message}
+                                    </span>)}
 
-                <div className="payment-text">Amount to Add</div>
-                <div className="col-span-2">
-                    <input
-                        className="w-auto md:w-56 pl-4 py-2 rounded-md ml-5 border-2 outline-none border-zinc-400"
-                        type="text"
-                        value=""
-                        placeholder="Enter value"
-                        name=""
-                        id=""
-                    />
-                </div>
+                            </small>
+                        </div>
 
-                <div className="payment-text">Customer Phone Number</div>
-                <div className="col-span-2">
-                    <input
-                        className="w-auto md:w-56 pl-4 py-2 rounded-md ml-5 border-2 outline-none border-zinc-400"
-                        type="text"
-                        value=""
-                        placeholder="+88 0123 654 987"
-                        name=""
-                        id=""
-                    />
-                </div>
+                    </div>
+                    <hr className='my-2' />
+                    {/* transactionID */}
+                    <div className='grid md:grid-cols-2  gap-4  '>
+                        <div className="payment-title">Transaction ID</div>
+                        <div className="">
+                            <input
+                                className="w-auto  pl-4 py-2 rounded-md ml-5 border-2 outline-none border-zinc-400"
+                                type="text"
+                                placeholder="Asdsh123Yusdj"
+                                {...register("transactionID")}
+                            />
+                        </div>
 
-                <div className="payment-text">Paid To</div>
-                <div className="col-span-2 md:col-span-1">
-                    <select
-                        id="selectPhone"
-                        className="ml-5 bg-gray-50 border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-auto md:w-full p-2.5"
-                    >
-                        <option selected>Please Select</option>
-                        <option value="+88 0123 622 333">+88 0123 622 333</option>
-                        <option value="CA">+88 0123 622 444</option>
-                    </select>
-                </div>
-                <div className="hidden md:block"></div>
+                    </div>
+                    <hr className='my-2' />
+                    {/* Transaction (screenshot) */}
+                    <div className='grid md:grid-cols-2  gap-4  '>
+                        <div className="payment-title">Transaction (screenshot) *</div>
+                        <div className="">
+                            <input
+                                className="w-auto  pl-4 py-2 rounded-md ml-5 border-2 outline-none border-zinc-400"
+                                type="file"
+                                placeholder='Choose a file'
+                                {...register("transactionScreenShot", {
+                                    required: {
+                                        value: true,
+                                        message: "Screenshot is required"
+                                    }
+                                })}
+                            />
+                            <small className="text-[#FF4B2B] ml-2">
+                                {errors.Screenshot?.type === "required" && (
+                                    <span className="label-text-alt text-red-500 ">
+                                        {errors.Screenshot.message}
+                                    </span>)}
 
-                <div className="payment-text">Transaction ID</div>
-                <div className="col-span-2 flex flex-col md:flex-row gap-4 md:gap-0 items-center">
-                    <input
-                        className="w-full md:w-56 pl-4 py-2 rounded-lg ml-5 border-2 outline-none border-zinc-400"
-                        type="text"
-                        value=""
-                        placeholder="Axfhkem2589ajh"
-                        name=""
-                        id=""
-                    />
-                    <input
-                        className="w-full md:w-56 pl-4 py-2 rounded-lg ml-5 border-2 outline-none border-zinc-400"
-                        type="text"
-                        value=""
-                        placeholder="Axfhkem2589ajh"
-                        name=""
-                        id=""
-                    />
-                </div>
-
-                <div></div>
-                <div className="col-span-2">
-                    <button className="payment-btn ml-5">Confirm</button>
-                </div>
-
-                <div className="hidden md:block"></div>
-                <div className="col-span-3 md:col-span-2">
-                    <p className="payment-alert">
-                        Thank you for Your Payment. We will notify you after verification.
-                    </p>
-                </div>
+                            </small>
+                        </div>
+                    </div>
+                    <div className='grid md:grid-cols-2  gap-4  mt-6'>
+                        <div></div>
+                        <div>
+                            <input type="submit" value="CONFIRM" className='payment-btn ml-5 text-white bg-green-600 cursor-pointer hover:shadow-2xl px-6 py-2 rounded shadow' />
+                        </div>
+                    </div>
+                    <div className='grid md:grid-cols-2  gap-4 mt-6'>
+                        <div></div>
+                        {notify && <div className="bg-orange-600 shadow-lg px-8 py-4 text-white rounded ">
+                            <p className="payment-alert">
+                                Thank you for Your Payment. We will notify you after verification.
+                            </p>
+                        </div>}
+                    </div>
+                </form>
             </div>
         </>
     )

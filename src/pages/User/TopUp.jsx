@@ -42,7 +42,7 @@ const TopUp = () => {
             setInternetBanking(false)
             setInternationalGateway(true)
         }
-        console.log("Selected payment method:", event.target.value);
+        // console.log("Selected payment method:", event.target.value);
 
     };
 
@@ -56,7 +56,7 @@ const TopUp = () => {
             <div className='mt-24'>
                 <section className="container p-0 md:p-4 mx-auto">
                     <div className="flex justify-start items-center gap-2 md:gap-36">
-                        <div className="border-2 rounded-md p-1 md:p-3">
+                        <div className="border-2  p-1 md:p-3 bg-slate-100 shadow-md rounded-lg">
                             <div className="flex justify-between items-center gap-24 text-base font-semibold">
                                 <h2 className="">Httpool Balance</h2>
                                 <p className="">$ 39.25</p>
@@ -67,7 +67,7 @@ const TopUp = () => {
                             </div>
                             <h2 className="text-base font-semibold">Convert To BDT</h2>
                         </div>
-                        <div className="border-2 rounded-md p-1 md:p-3">
+                        <div className="border-2  p-1 md:p-3 bg-slate-100 shadow-md rounded-lg">
                             <div className="flex justify-between items-center gap-24 text-base font-semibold">
                                 <h2>Httpool Balance</h2>
                                 <p>$ 39.25</p>
@@ -79,62 +79,6 @@ const TopUp = () => {
                             <h2 className="text-base font-semibold">Convert To BDT</h2>
                         </div>
                     </div>
-                    {/* <div className="flex gap-24 mt-6">
-                        <h2 className="text-base font-semibold">Payment Method</h2>
-                        <div>
-                            <div>
-                                <input className="mr-2" type="checkbox" name="" id="Cash" />
-                                <label className="text-base font-semibold" htmlFor="Cash">
-                                    Cash
-                                </label>
-                            </div>
-                            <div>
-                                <input
-                                    className="mr-2"
-                                    type="checkbox"
-                                    name=""
-                                    id="MobileBanking"
-                                    value={mobileBanking}
-                                    onChange={setMobileBanking}
-                                />
-                                <label
-                                    className="text-base font-semibold"
-                                    htmlFor="MobileBanking"
-                                >
-                                    Mobile Banking
-                                </label>
-                            </div>
-                            <div>
-                                <input
-                                    className="mr-2"
-                                    type="checkbox"
-                                    name=""
-                                    id="InternetBanking"
-                                />
-                                <label
-                                    className="text-base font-semibold"
-                                    htmlFor="InternetBanking"
-                                >
-                                    Internet Banking
-                                </label>
-                            </div>
-                            <div>
-                                <input
-                                    className="mr-2"
-                                    type="checkbox"
-                                    name=""
-                                    id="International"
-                                />
-                                <label
-                                    className="text-base font-semibold"
-                                    htmlFor="International"
-                                >
-                                    International Payment Getway
-                                </label>
-                            </div>
-                        </div>
-                    </div> */}
-
                     <div className="flex gap-24 mt-6">
                         <h2 className="text-base font-semibold">Payment Method</h2>
                         <div>
@@ -144,7 +88,7 @@ const TopUp = () => {
                                     type="radio"
                                     name="paymentMethod"
                                     id="Cash"
-                                    value="Cash"
+                                    defaultValue="Cash"
                                     checked={selectedMethod === "Cash"}
                                     onChange={handleCheckboxChange}
                                 />
@@ -158,7 +102,7 @@ const TopUp = () => {
                                     type="radio"
                                     name="paymentMethod"
                                     id="MobileBanking"
-                                    value="Mobile Banking"
+                                    defaultValue="Mobile Banking"
                                     checked={selectedMethod === "Mobile Banking"}
                                     onChange={handleCheckboxChange}
                                 />
@@ -172,7 +116,7 @@ const TopUp = () => {
                                     type="radio"
                                     name="paymentMethod"
                                     id="InternetBanking"
-                                    value="Internet Banking"
+                                    defaultValue="Internet Banking"
                                     checked={selectedMethod === "Internet Banking"}
                                     onChange={handleCheckboxChange}
                                 />
@@ -186,7 +130,7 @@ const TopUp = () => {
                                     type="radio"
                                     name="paymentMethod"
                                     id="International"
-                                    value="International Payment Gateway"
+                                    defaultValue="International Payment Gateway"
                                     checked={selectedMethod === "International Payment Gateway"}
                                     onChange={handleCheckboxChange}
                                 />
@@ -196,26 +140,23 @@ const TopUp = () => {
                             </div>
                         </div>
                     </div>
-
-                    {/* cash */}
-                    {cash && <Cash />}
-
-
-                    {/* mobile banking */}
-                    {mobileBanking && <MobileBanking />}
-
-
-                    {/* Internet Banking */}
-                    {internetBanking && <InternetBanking />}
-
-                    {/* international gateway */}
-                    {internationalGateway && <InternationalGateway />}
-
-                    {/* converter */}
-                    <Converter />
-
-
                 </section>
+                {/* cash */}
+                {cash && <Cash cash={cash}/>}
+
+
+                {/* mobile banking */}
+                {mobileBanking && <MobileBanking mobileBanking={mobileBanking}/>}
+
+
+                {/* Internet Banking */}
+                {internetBanking && <InternetBanking internetBanking={internetBanking}/>}
+
+                {/* international gateway */}
+                {internationalGateway && <InternationalGateway internationalGateway={internationalGateway}/>}
+
+                {/* converter */}
+                <Converter />
             </div>
         </>
     )

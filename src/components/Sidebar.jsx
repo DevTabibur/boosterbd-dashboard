@@ -21,8 +21,17 @@ import useActiveUser from '../Hooks/useActiveUser';
 import Loader from './Loader/Loader';
 
 const Sidebar = () => {
-  const [activeUser, isLoading] = useActiveUser()
+  const [activeUser, isLoading] = useActiveUser();
   const [admin, adminLoading] = useAdmin(activeUser);
+
+
+
+  // if (adminLoading) {
+  //   return <Loader />
+  // }
+
+
+  // console.log('activeUser', activeUser?._id)
   // console.log('activeUser', activeUser?.profile)
   // const admin = true;
   // const activeUser?.phoneNumber = true
@@ -39,9 +48,8 @@ const Sidebar = () => {
   const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2';
 
 
-  // if (isLoading) {
-  //   return <Loader />
-  // }
+
+  console.log('admin', admin)
 
 
   const userMenu = [
@@ -153,6 +161,10 @@ const Sidebar = () => {
       icon: <MdVerified />,
     },
   ]
+  // if (isLoading || adminLoading) {
+  //   return <Loader />
+  // }
+
 
   return (
     <div className="ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10">
@@ -174,30 +186,9 @@ const Sidebar = () => {
             </TooltipComponent>
           </div>
           <div className="mt-10 ">
-            {/* {links.map((item) => (
-              <div key={item.title}>
-                <p className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase">
-                  {item.title}
-                </p>
-                {item.links.map((link) => (
-                  <NavLink
-                    to={`/${link.name}`}
-                    key={link.name}
-                    onClick={handleCloseSideBar}
-                    style={({ isActive }) => ({
-                      backgroundColor: isActive ? currentColor : '',
-                    })}
-                    className={({ isActive }) => (isActive ? activeLink : normalLink)}
-                  >
-                    {link.icon}
-                    <span className="capitalize ">{link.name}</span>
-                  </NavLink>
-                ))}
-              </div>
-            ))} */}
 
             {/* user routes */}
-            {activeUser?.phoneNumber && <div>
+            {!admin && <div>
               {userMenu.map((link) => (
                 <NavLink
                   to={`/${link.name}`}
