@@ -18,7 +18,7 @@ const RequireAdmin = () => {
     }
 
     if (!activeUser || !admin) {
-        return <Navigate to="/" replace />;
+        return <Navigate to="/" state={{ from: location }} replace />;
     }
 
     return <Outlet />;

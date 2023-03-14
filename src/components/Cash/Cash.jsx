@@ -6,6 +6,7 @@ const Cash = ({ cash }) => {
     const [selectedMethod, setSelectedMethod] = useState("");
     const [handlePaidToSelected, setHandlePaidToSelected] = useState("")
     const [notify, setNotify] = useState(false)
+    const [verifiedUser, setVerifiedUser] = useState(false)
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
@@ -24,6 +25,7 @@ const Cash = ({ cash }) => {
         formData.append("handlePaidToSelected", handlePaidToSelected);
         formData.append("amountToAdd", data.amountToAdd);
         formData.append("cashProof", data.cashProof[0])
+        // formData.append("status", "pending")
 
         const img = data.cashProof[0];
         const validExt = ["png", "jpg", "jpeg", "PNG", "JPG", "JPEG"];
@@ -195,8 +197,8 @@ const Cash = ({ cash }) => {
                     <div className='grid md:grid-cols-2  gap-4  '>
 
                         <div></div>
-                        <div>
-                            <input type="submit" value="CONFIRM" className='payment-btn ml-5 text-white bg-green-600 cursor-pointer hover:shadow-2xl px-6 py-2 rounded shadow' />
+                        <div className={`${verifiedUser ? "" : "cursor-progress"}`}>
+                            <input type="submit" value="CONFIRM" className='payment-btn ml-5 text-white bg-green-600 cursor-pointer hover:shadow-2xl px-6 py-2 rounded shadow' disabled={!verifiedUser}/>
                         </div>
 
                     </div>

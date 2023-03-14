@@ -12,6 +12,8 @@ const RequireUser = () => {
     const getToken = localStorage.getItem("accessToken");
     // const getTokenDecoded = JSON.parse(getToken);
 
+    // console.log('getToken', getToken)
+
     useEffect(() => {
         if (getToken !== null && getToken !== undefined) {
             const decoded = jwt_decode(getToken);

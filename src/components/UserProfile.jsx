@@ -5,9 +5,21 @@ import { Button } from '.';
 import { userProfileData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import avatar from '../data/avatar.jpg';
+import Swal from 'sweetalert2';
+import {  useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
   const { currentColor } = useStateContext();
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    Swal.fire({
+      title: "Logout Successfully",
+      icon: "success",
+    });
+    navigate("/");
+    window.location.reload();
+  };
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
@@ -51,7 +63,7 @@ const UserProfile = () => {
           </div>
         ))}
       </div>
-      <div className="mt-5">
+      <div className="mt-5" onClick={logout}>
         <Button
           color="white"
           bgColor={currentColor}

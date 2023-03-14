@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useActiveUser from "../../Hooks/useActiveUser";
 import useUser from "../../Hooks/useUser";
@@ -9,6 +9,7 @@ import Subnav from "./SubNav";
 const Navbar = () => {
     const [activeUser, isLoading] = useActiveUser();
     console.log('activeUser', activeUser)
+    const navigate = useNavigate();
     const [showNav, setShowNav] = useState(false);
     const change = () => {
         if (window.scrollY >= 50) {
@@ -28,6 +29,12 @@ const Navbar = () => {
         navigate("/");
         window.location.reload();
     };
+    const login = () => {
+        navigate("/login")
+    }
+    const dashboard = () => {
+        navigate("/dashboard")
+    }
     // if (isLoading) {
     //     return <Loader />
     // }
@@ -51,15 +58,16 @@ const Navbar = () => {
                         </div>
                         <div className="">
                             <ul className="flex gap-[10px] ">
-                                <button className="bg-[#F2F3F5] w-[102px] h-10 rounded-[7px] font-arial">
-                                    {activeUser?.phoneNumber ? <Link to="/dashboard">Dashboard</Link> : <Link to="/login">Log in</Link>}
 
-                                </button>
-                                {activeUser?.phoneNumber &&
-                                    <button onClick={logout} className="bg-[#F4A72D] w-28 h-10 rounded-[7px] text-white font-bold">
-                                        Log out
-                                    </button>
-                                }
+                                {activeUser?.phoneNumber && <button className="bg-[#F4A72D] w-28 h-10 rounded-[7px] text-white font-bold" onClick={dashboard}>Dashboard</button>}
+                                {activeUser?.phoneNumber ? <button onClick={logout} className="bg-[#F4A72D] w-28 h-10 rounded-[7px] text-white font-bold">
+                                    Log out
+                                </button> : <button onClick={login} className="bg-[#F4A72D] w-28 h-10 rounded-[7px] text-white font-bold">
+                                    Login
+                                </button>}
+
+
+
 
                             </ul>
                         </div>

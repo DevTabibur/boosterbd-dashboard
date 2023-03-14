@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Pie, Stacked } from "..";
 import { Area, Bar, Calendar, ColorMapping, ColorPicker, Customers, Dashboard, Editor, Employees, Financial, Kanban, Line, Orders, Pyramid } from "../../pages";
-import Login from "../../pages/Login/Login";
+import Login from "../../pages/Register/Register";
 
 const CustomRouter = () => {
   return (

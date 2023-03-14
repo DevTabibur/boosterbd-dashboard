@@ -59,6 +59,30 @@ const Transactions = () => {
             setInternationalGateway(false)
             setInternetBanking(false)
             setMobileBanking(true)
+
+            const url = `http://localhost:5000/api/v1/top-up/mobile-banking`;
+            fetch(url, {
+                method: "GET",
+                headers: {
+                    'content-type': "application/json"
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log('cash top-up get', data.data)
+                    if (data.code === 400) {
+                        Swal.fire({
+                            title: data.status,
+                            text: data?.error,
+                            icon: "error"
+                        })
+                    }
+                    else {
+                        setMobileBanking(data?.data)
+                    }
+                })
+
+
         }
         else if (event.target.value === "Internet Banking") {
             setCash(false)
@@ -66,6 +90,29 @@ const Transactions = () => {
             setInternationalGateway(false)
             setMobileBanking(false)
             setInternetBanking(true)
+
+            const url = `http://localhost:5000/api/v1/top-up/internet-banking`;
+            fetch(url, {
+                method: "GET",
+                headers: {
+                    'content-type': "application/json"
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log('cash top-up get', data.data)
+                    if (data.code === 400) {
+                        Swal.fire({
+                            title: data.status,
+                            text: data?.error,
+                            icon: "error"
+                        })
+                    }
+                    else {
+                        setInternetBanking(data?.data)
+                    }
+                })
+
         }
         else if (event.target.value === "International Payment Gateway") {
             setCash(false)
@@ -73,6 +120,30 @@ const Transactions = () => {
             setMobileBanking(false)
             setInternetBanking(false)
             setInternationalGateway(true)
+
+
+            const url = `http://localhost:5000/api/v1/top-up/international-payment-gateway`;
+            fetch(url, {
+                method: "GET",
+                headers: {
+                    'content-type': "application/json"
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log('cash top-up get', data.data)
+                    if (data.code === 400) {
+                        Swal.fire({
+                            title: data.status,
+                            text: data?.error,
+                            icon: "error"
+                        })
+                    }
+                    else {
+                        setInternationalGateway(data?.data)
+                    }
+                })
+
         }
         // console.log("Selected payment method:", event.target.value);
 
@@ -91,14 +162,14 @@ const Transactions = () => {
 
 
 
-    console.log('cash', cash)
+    console.log('internet', internetBanking)
 
 
     return (
         <>
             <div className="mt-24">
                 <h2 className="text-center text-2xl font-semibold">Transactions</h2>
-                <div className="flex gap-24 mt-6 mx-20 bg-zinc-200 rounded shadow-lg p-6">
+                <div className="md:flex gap-24 mt-6 mx-20 bg-zinc-200 rounded shadow-lg p-6">
                     <h2 className="text-base font-semibold">Payment Method</h2>
                     <div>
                         <div>
@@ -160,7 +231,63 @@ const Transactions = () => {
                     </div>
                 </div>
 
+                {/* cash */}
+
                 {cash.length >= 0 &&
+                    <div className="grid md:grid-cols-1 my-0 mx-4 ">
+                        <div className="overflow-x-auto">
+                            <table className="table-auto w-full  mt-10 font-normal">
+                                <thead className="text-white">
+                                    <tr className="text-black flex md:flex-row flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+                                        <th className="p-3 text-left text-[#717D82]">Date</th>
+                                        <th className="p-3 text-left text-[#717D82]">Payment Proof</th>
+                                        <th className="p-3 text-left text-[#717D82]">Paid To</th>
+
+                                        <th className="p-3 text-left text-[#717D82]">
+                                            Payment For
+                                        </th>
+                                        <th className="p-3 text-left text-[#717D82]">
+                                           Amount
+                                        </th>
+                                        <th className="p-3 text-left text-[#717D82]">Details</th>
+                                    </tr>
+                                </thead>
+
+
+                                {cash.map((data, i) => {
+                                    return (<tbody key={i} className="">
+                                        <tr className="flex md:flex-row flex-no-wrap sm:table-row mb-2 sm:mb-0">
+                                            <td className="text-[#464F53] font-normal  p-3">{data.createdAt}</td>
+                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`http://localhost:5000/${data.cashProof}`} alt='cashProof' /></td>
+                                            <td className="text-[#464F53] font-normal   p-3 truncate">
+                                                {data.paidTo}
+                                            </td>
+                                            <td className="text-[#464F53] font-normal   p-3 truncate">
+                                                {data.paymentFor}
+                                            </td>
+
+                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.amountToAdd}</td>
+                                            <td >
+                                                <button onClick={() => handleModalOpen(data)} type="button"
+                                                    className="inline-block rounded  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-gray-700 "
+                                                    data-te-toggle="modal"
+                                                    data-te-target="#exampleModal"
+                                                    data-te-ripple-init
+                                                    data-te-ripple-color="light">Details</button>
+
+
+                                            </td>
+
+                                        </tr>
+                                    </tbody>)
+                                })}
+                            </table>
+                        </div>
+                    </div>
+                }
+                {/* mobileBanking */}
+
+                {mobileBanking.length >= 0 &&
                     <div className="grid md:grid-cols-1 my-0 mx-4 ">
                         <div className="overflow-x-auto">
                             <table className="table-auto w-full  mt-10 font-normal">
@@ -181,7 +308,7 @@ const Transactions = () => {
                                 </thead>
 
 
-                                {cash.map((data, i) => {
+                                {mobileBanking.map((data, i) => {
                                     return (<tbody key={i} className="">
                                         <tr className="flex md:flex-row flex-no-wrap sm:table-row mb-2 sm:mb-0">
                                             <td className="text-[#464F53] font-normal  p-3">{data.createdAt}</td>
@@ -213,6 +340,128 @@ const Transactions = () => {
                         </div>
                     </div>
                 }
+
+                {/* internet banking */}
+
+                {internetBanking.length >= 0 &&
+                    <div className="grid md:grid-cols-1 my-0 mx-4 ">
+                        <div className="overflow-x-auto">
+                            <table className="table-auto w-full  mt-10 font-normal">
+                                <thead className="text-white">
+                                    <tr className="text-black flex md:flex-row flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+                                        <th className="p-3 text-left text-[#717D82]">Date</th>
+                                        <th className="p-3 text-left text-[#717D82]">Payment Proof</th>
+                                        <th className="p-3 text-left text-[#717D82]">Paid To</th>
+
+                                        <th className="p-3 text-left text-[#717D82]">
+                                            Payment For
+                                        </th>
+                                        <th className="p-3 text-left text-[#717D82]">
+                                            Payment Method
+                                        </th>
+                                        <th className="p-3 text-left text-[#717D82]">Details</th>
+                                    </tr>
+                                </thead>
+
+
+                                {internetBanking.map((data, i) => {
+                                    return (<tbody key={i} className="">
+                                        <tr className="flex md:flex-row flex-no-wrap sm:table-row mb-2 sm:mb-0">
+                                            <td className="text-[#464F53] font-normal  p-3">{data.createdAt}</td>
+                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`http://localhost:5000/${data.cashProof}`} alt='cashProof' /></td>
+                                            <td className="text-[#464F53] font-normal   p-3 truncate">
+                                                {data.paidTo}
+                                            </td>
+                                            <td className="text-[#464F53] font-normal   p-3 truncate">
+                                                {data.paymentFor}
+                                            </td>
+
+                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.paymentMethod}</td>
+                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.paymentMethod}</td>
+                                            <td >
+                                                <button onClick={() => handleModalOpen(data)} type="button"
+                                                    className="inline-block rounded  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-gray-700 "
+                                                    data-te-toggle="modal"
+                                                    data-te-target="#exampleModal"
+                                                    data-te-ripple-init
+                                                    data-te-ripple-color="light">Details</button>
+
+
+                                            </td>
+
+                                        </tr>
+                                    </tbody>)
+                                })}
+                            </table>
+                        </div>
+                    </div>
+                }
+
+
+                {/* international gateway*/}
+
+                {internationalGateway.length >= 0 &&
+                    <div className="grid md:grid-cols-1 my-0 mx-4 ">
+                        <div className="overflow-x-auto">
+                            <table className="table-auto w-full  mt-10 font-normal">
+                                <thead className="text-white">
+                                    <tr className="text-black flex md:flex-row flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+                                        <th className="p-3 text-left text-[#717D82]">Date</th>
+                                        <th className="p-3 text-left text-[#717D82]">Payment Proof</th>
+                                        <th className="p-3 text-left text-[#717D82]">Paid To</th>
+
+                                        <th className="p-3 text-left text-[#717D82]">
+                                            Payment For
+                                        </th>
+                                        <th className="p-3 text-left text-[#717D82]">
+                                            Amount
+                                        </th>
+                                        <th className="p-3 text-left text-[#717D82]">Details</th>
+                                    </tr>
+                                </thead>
+
+
+                                {internationalGateway.map((data, i) => {
+                                    return (<tbody key={i} className="">
+                                        <tr className="flex md:flex-row flex-no-wrap sm:table-row mb-2 sm:mb-0">
+                                            <td className="text-[#464F53] font-normal  p-3">{data.createdAt}</td>
+                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`http://localhost:5000/${data.cashProof}`} alt='cashProof' /></td>
+                                            <td className="text-[#464F53] font-normal   p-3 truncate">
+                                                {data.paidTo}
+                                            </td>
+                                            <td className="text-[#464F53] font-normal   p-3 truncate">
+                                                {data.paymentFor}
+                                            </td>
+
+                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.paymentMethod}</td>
+                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.amountToAdd}</td>
+                                            <td >
+                                                <button onClick={() => handleModalOpen(data)} type="button"
+                                                    className="inline-block rounded  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-gray-700 "
+                                                    data-te-toggle="modal"
+                                                    data-te-target="#exampleModal"
+                                                    data-te-ripple-init
+                                                    data-te-ripple-color="light">Details</button>
+
+
+                                            </td>
+
+                                        </tr>
+                                    </tbody>)
+                                })}
+                            </table>
+                        </div>
+                    </div>
+                }
+
+
+
+
+
+
+
+
+
                 {/* modal */}
                 {isModalOpen && (
                     <Modal selectedOrder={selectedOrder} />
@@ -250,6 +499,7 @@ const Modal = ({ selectedOrder }) => {
                                 id="exampleModalLabel">
                                 Order ID : {selectedOrder?._id}
                             </h5>
+                            <p>{selectedOrder?.amountToAdd}</p>
                             <button
                                 type="button"
                                 className="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"

@@ -22,7 +22,8 @@ import Loader from './Loader/Loader';
 
 const Sidebar = () => {
   const [activeUser, isLoading] = useActiveUser();
-  const [admin, adminLoading] = useAdmin(activeUser);
+  // const [admin, adminLoading] = useAdmin(activeUser);
+  const admin = true;
 
 
 
@@ -49,7 +50,7 @@ const Sidebar = () => {
 
 
 
-  console.log('admin', admin)
+  // console.log('admin', admin)
 
 
   const userMenu = [
@@ -188,7 +189,7 @@ const Sidebar = () => {
           <div className="mt-10 ">
 
             {/* user routes */}
-            {!admin && <div>
+            {admin && <div>
               {userMenu.map((link) => (
                 <NavLink
                   to={`/${link.name}`}

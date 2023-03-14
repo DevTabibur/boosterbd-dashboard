@@ -9,7 +9,7 @@ import NotFound from "./components/NotFound/NotFound";
 import CustomRouter from "./components/Router/CustomRouter";
 import { useStateContext } from "./contexts/ContextProvider";
 import { Area, Bar, Calendar, ColorMapping, ColorPicker, Customers, Dashboard, Ecommerce, Editor, Employees, Financial, Kanban, Line, Orders, Pyramid } from "./pages";
-import Login from "./pages/Login/Login";
+import Login from "./pages/Register/Register";
 import Profile from "./components/Profile/Profile";
 import Test from "./pages/Test";
 import AdAccountView from "./pages/User/AdAccountView";
@@ -70,10 +70,12 @@ const App = () => {
           <Route key={idx} path={path} element={<Component />} />
         ))}
 
-        <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
-        {/* user routes  */}
         <Route element={<RequireUser></RequireUser>}>
+          <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
+        </Route>
 
+        {/* user routes  */}
+        {/* <Route element={<RequireUser></RequireUser>}> */}
           <Route path="/claim" element={<DashboardLayout><Claim /></DashboardLayout>} />
           <Route path="/top-up" element={<DashboardLayout><TopUp /></DashboardLayout>} />
           <Route path="/fund-management" element={<DashboardLayout><FundManagement /></DashboardLayout>} />
@@ -86,14 +88,14 @@ const App = () => {
           <Route path="/payment-method" element={<DashboardLayout><PaymentMethod /></DashboardLayout>} />
           <Route path="/package" element={<DashboardLayout><CurrentPackage /></DashboardLayout>} />
           <Route path="/setting" element={<DashboardLayout><Setting /></DashboardLayout>} />
-        </Route>
+        {/* </Route> */}
 
 
 
 
 
         {/* Admin routes */}
-        <Route element={<RequireAdmin></RequireAdmin>}>
+        {/* <Route element={<RequireAdmin></RequireAdmin>}> */}
           <Route path="/create-ad-account" element={<DashboardLayout><CreateAdAccount /></DashboardLayout>} />
           <Route path="/ad-account-requests-view" element={<DashboardLayout><AdAccountRequestsView /></DashboardLayout>} />
           <Route path="/transactions" element={<DashboardLayout><Transactions /></DashboardLayout>} />
@@ -104,7 +106,7 @@ const App = () => {
           <Route path="/currency" element={<DashboardLayout><Currency /></DashboardLayout>} />
           <Route path="/spending-rate" element={<DashboardLayout><SpendingRate /></DashboardLayout>} />
           <Route path="/verification" element={<DashboardLayout><Verification /></DashboardLayout>} />
-        </Route>
+        {/* </Route> */}
 
       </Routes>
     </>
