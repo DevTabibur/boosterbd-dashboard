@@ -1,8 +1,16 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import { useStateContext } from '../../contexts/ContextProvider';
+import useActiveUser from '../../Hooks/useActiveUser';
+import useCheckVerify from '../../Hooks/useCheckVerify';
 
-const MobileBanking = ({ mobileBanking }) => {
+const MobileBanking = () => {
+    const { currentColor } = useStateContext();
+    const [activeUser, isLoading] = useActiveUser()
+    const [verifyUser, verifyLoading] = useCheckVerify(activeUser?._id)
+
+
     const [selectedMethod, setSelectedMethod] = useState("");
     const [selectedPaymentWay, setSelectedPaymentWay] = useState("");
     const [notify, setNotify] = useState(false)
@@ -27,6 +35,7 @@ const MobileBanking = ({ mobileBanking }) => {
         formData.append("paymentFor", selectedMethod);
         formData.append("paymentWith", selectedPaymentWay);
         formData.append("amountToAdd", data.amountToAdd);
+        formData.append("phoneNumber", activeUser?.phoneNumber);
         formData.append("paidTo", data.paidTo);
         formData.append("transactionID", data.transactionID);
         formData.append("senderNumber", data.senderNumber);
@@ -51,11 +60,11 @@ const MobileBanking = ({ mobileBanking }) => {
             }
             // checking image size
             else {
-                if (parseFloat(img.size / (1024 * 1024)) >= 2) {
+                if (parseFloat(img.size / (1024 * 1024)) >= 0.3) {
                     // img size should be under 5 mb
                     // perform operation
                     Swal.fire({
-                        title: "File Size must be smaller than 2MB",
+                        title: "File Size must be smaller than 300KB",
                         icon: "warning",
                     });
                     return false;
@@ -66,7 +75,7 @@ const MobileBanking = ({ mobileBanking }) => {
                     fetch(url, {
                         method: "POST",
                         headers: {
-                            // authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                         },
                         body: formData,
                     })
@@ -79,7 +88,22 @@ const MobileBanking = ({ mobileBanking }) => {
                                     text: data?.error,
                                     icon: "error",
                                 });
-                            } else {
+                            }
+                            else if (data.code === 401) {
+                                Swal.fire({
+                                    title: data?.message,
+                                    text: data?.error,
+                                    icon: "warning",
+                                });
+                            }
+                            else if (data.code === 403) {
+                                Swal.fire({
+                                    title: data?.message,
+                                    text: data?.error,
+                                    icon: "warning",
+                                });
+                            }
+                            else {
                                 setNotify(true)
                                 Swal.fire({
                                     title: data.status,
@@ -285,15 +309,26 @@ const MobileBanking = ({ mobileBanking }) => {
                     </div>
                     <div className='grid md:grid-cols-2  gap-4  mt-6'>
                         <div></div>
-                        <div>
-                            <input type="submit" value="CONFIRM" className='payment-btn ml-5 text-white bg-green-600 cursor-pointer hover:shadow-2xl px-6 py-2 rounded shadow' />
-                        </div>
+                        {verifyUser?.profile === "verified" && <div >
+
+                            <input
+                                type="submit"
+                                value={"CONFIRM"}
+                                className={`payment-btn ml-5 text-white bg-${currentColor} cursor-pointer hover:shadow-2xl px-6 py-2 rounded shadow`}
+                                style={{ backgroundColor: currentColor }}
+                            />
+                        </div>}
                     </div>
                     <div className='grid md:grid-cols-2  gap-4 mt-6'>
                         <div></div>
-                        {notify && <div className="bg-orange-600 shadow-lg px-8 py-4 text-white rounded ">
+                        {notify && <div className="bg-orange-600 shadow-lg px-8 py-4 text-white rounded " style={{ backgroundColor: currentColor }}>
                             <p className="payment-alert">
                                 Thank you for Your Payment. We will notify you after verification.
+                            </p>
+                        </div>}
+                        {verifyUser?.profile === "unverified" && <div className="shadow-lg px-8 py-4 text-white rounded " style={{ backgroundColor: currentColor }}>
+                            <p className="payment-alert">
+                                Please make your <a href='/setting' className='text-lg font-bold underline text-black'>profile</a> completed and wait for verification. Thank You
                             </p>
                         </div>}
                     </div>

@@ -1,3 +1,11 @@
+.register-page {
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #d9edff;
+}
+
 @import url("react-phone-number-input/style.css");
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback");
@@ -10,9 +18,9 @@
   --asset_color: #000;
 }
 
-body {
+/* body {
   font-family: "Inter", sans-serif !important;
-}
+} */
 
 input[type="range"] {
   appearance: none;

@@ -23,33 +23,36 @@ const Verification = () => {
 
     const handleMakeVerified = (id) => {
         // console.log('handleMakeVerified', id)
-        const url = `http://localhost:5000/api/v1/user/register2/${id}`;
-        fetch(url, {
-            method: "PUT",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({ profile: "verified" })
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log('make user verified', data)
-                if (data.code === 400 || data.code === 401 || data.code === 402) {
-                    Swal.fire({
-                        title: data.status,
-                        text: data.error,
-                        icon: "error"
-                    })
-                }
-                else {
-                    Swal.fire({
-                        title: data.status,
-                        text: data.message,
-                        icon: 'success'
-                    })
-                    window.location.reload()
-                }
+        const confirmation = window.confirm("Do you want to make him verified?")
+        if (confirmation) {
+            const url = `http://localhost:5000/api/v1/user/register2/${id}`;
+            fetch(url, {
+                method: "PUT",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({ profile: "verified" })
             })
+                .then(res => res.json())
+                .then(data => {
+                    console.log('make user verified', data)
+                    if (data.code === 400 || data.code === 401 || data.code === 402) {
+                        Swal.fire({
+                            title: data.status,
+                            text: data.error,
+                            icon: "error"
+                        })
+                    }
+                    else {
+                        Swal.fire({
+                            title: data.status,
+                            text: data.message,
+                            icon: 'success'
+                        })
+                        window.location.reload()
+                    }
+                })
+        }
     }
 
 
@@ -220,16 +223,18 @@ const Verification = () => {
 
                                         <td className="text-[#464F53]      p-3 truncate">{i + 1}</td>
                                         <td className="text-[#464F53]      p-3 ">{user?.name}</td>
-                                        <td className="text-[#464F53]      p-3 ">
+                                        {user?.imageURL ? <td className="text-[#464F53] p-3 ">
                                             <img className='h-10 w-10 relative' src={`http://localhost:5000/${user?.imageURL}`} alt="imag" />
-                                        </td>
+                                        </td> : <td className="text-[#464F53] p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
+
                                         <td className="text-[#464F53]      p-3 ">
                                             {user?._id}
                                         </td>
                                         <td className="text-[#464F53]      p-3 ">
                                             {user?.phoneNumber}
                                         </td>
-                                        <td className="text-[#464F53]      p-3 ">{user?.completionRate} %</td>
+                                        {user?.completionRate ? <td className="text-[#464F53]      p-3 ">{user?.completionRate} %</td> : <td className="text-[#464F53]      p-3 ">Didn't complete yet </td>}
+
                                         <td className="text-center">
                                             {user?.profile}
                                         </td>

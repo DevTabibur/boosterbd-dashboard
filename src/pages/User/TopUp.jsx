@@ -79,7 +79,7 @@ const TopUp = () => {
                             <h2 className="text-base font-semibold">Convert To BDT</h2>
                         </div>
                     </div>
-                    <div className="flex gap-24 mt-6">
+                    <div className="flex gap-24 mt-6 bg-[#d9edff] p-6 rounded-3xl shadow-lg">
                         <h2 className="text-base font-semibold">Payment Method</h2>
                         <div>
                             <div>

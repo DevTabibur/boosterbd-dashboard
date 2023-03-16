@@ -1,9 +1,11 @@
 
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { useStateContext } from "../../../contexts/ContextProvider";
 import { transactionData } from "../../../Database/transactionData";
 
 const Transactions = () => {
+    const { currentColor } = useStateContext()
     const [cash, setCash] = useState(false);
     const [mobileBanking, setMobileBanking] = useState(false);
     const [internetBanking, setInternetBanking] = useState(false);
@@ -164,6 +166,13 @@ const Transactions = () => {
 
     console.log('internet', internetBanking)
 
+    const handleApproved = (id) => {
+        alert(id)
+    }
+    const handleCanceled = (id) => {
+        alert(id)
+    }
+
 
     return (
         <>
@@ -239,6 +248,7 @@ const Transactions = () => {
                             <table className="table-auto w-full  mt-10 font-normal">
                                 <thead className="text-white">
                                     <tr className="text-black flex md:flex-row flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+                                        <th className="p-3 text-left text-[#717D82]">SL.</th>
                                         <th className="p-3 text-left text-[#717D82]">Date</th>
                                         <th className="p-3 text-left text-[#717D82]">Payment Proof</th>
                                         <th className="p-3 text-left text-[#717D82]">Paid To</th>
@@ -247,7 +257,7 @@ const Transactions = () => {
                                             Payment For
                                         </th>
                                         <th className="p-3 text-left text-[#717D82]">
-                                           Amount
+                                            Amount
                                         </th>
                                         <th className="p-3 text-left text-[#717D82]">Details</th>
                                     </tr>
@@ -255,27 +265,33 @@ const Transactions = () => {
 
 
                                 {cash.map((data, i) => {
-                                    return (<tbody key={i} className="">
-                                        <tr className="flex md:flex-row flex-no-wrap sm:table-row mb-2 sm:mb-0">
-                                            <td className="text-[#464F53] font-normal  p-3">{data.createdAt}</td>
-                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`http://localhost:5000/${data.cashProof}`} alt='cashProof' /></td>
-                                            <td className="text-[#464F53] font-normal   p-3 truncate">
-                                                {data.paidTo}
+                                    return (<tbody key={i}>
+                                        <tr className="flex md:flex-row flex-no wrap sm:table-row mb-2 sm:mb-0 text-[14px]">
+
+                                            <td className="text-[#464F53]      p-3 truncate">{i + 1}</td>
+                                            <td className="text-[#464F53]      p-3 ">{data?.createdAt}</td>
+                                            {data?.cashProof ? <td className="text-[#464F53] p-3 ">
+                                                <img className='h-10 w-10 relative' src={`http://localhost:5000/${data?.cashProof}`} alt="imag" />
+                                            </td> : <td className="text-[#464F53] p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
+
+                                            <td className="text-[#464F53]      p-3 ">
+                                                {data?.paidTo}
                                             </td>
-                                            <td className="text-[#464F53] font-normal   p-3 truncate">
-                                                {data.paymentFor}
+                                            <td className="text-[#464F53]      p-3 ">
+                                                {data?.paymentFor}
+                                            </td>
+                                            <td className="text-[#464F53]      p-3 ">
+                                                {data?.amountToAdd}
                                             </td>
 
-                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.amountToAdd}</td>
                                             <td >
                                                 <button onClick={() => handleModalOpen(data)} type="button"
                                                     className="inline-block rounded  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-gray-700 "
                                                     data-te-toggle="modal"
                                                     data-te-target="#exampleModal"
                                                     data-te-ripple-init
-                                                    data-te-ripple-color="light">Details</button>
-
-
+                                                    data-te-ripple-color="light"
+                                                    style={{ backgroundColor: currentColor }}>Details</button>
                                             </td>
 
                                         </tr>
@@ -464,7 +480,7 @@ const Transactions = () => {
 
                 {/* modal */}
                 {isModalOpen && (
-                    <Modal selectedOrder={selectedOrder} />
+                    <Modal selectedOrder={selectedOrder} handleApproved={handleApproved} handleCanceled={handleCanceled} />
                 )}
             </div>
         </>
@@ -476,7 +492,7 @@ export default Transactions;
 
 
 
-const Modal = ({ selectedOrder }) => {
+const Modal = ({ selectedOrder , handleApproved, handleCanceled}) => {
     console.log('modal selectedOrder', selectedOrder)
     return (
         <>
@@ -499,7 +515,7 @@ const Modal = ({ selectedOrder }) => {
                                 id="exampleModalLabel">
                                 Order ID : {selectedOrder?._id}
                             </h5>
-                            <p>{selectedOrder?.amountToAdd}</p>
+
                             <button
                                 type="button"
                                 className="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
@@ -520,49 +536,39 @@ const Modal = ({ selectedOrder }) => {
                             </button>
                         </div>
                         <div className="relative flex-auto p-4" data-te-modal-body-ref>
+                            <p className='flex justify-between'>Screen shot (hover for zoom): <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${selectedOrder?.cashProof}`} alt="imag" /></p>
+                            <hr></hr>
                             {/* Modal body text goes here. */}
-                            {/* <p>Profile Completed: {user?.completionRate} %</p>
-                            <p className='flex justify-between'>Image: <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${user?.imageURL}`} alt="imag" /></p> */}
+                            <p>Payment Method : {selectedOrder?.paymentMethod}</p>
+                            <p>Amount : {selectedOrder?.amountToAdd} BDT</p>
+                            <p>Payment For : {selectedOrder?.paymentFor}</p>
                             <hr />
-                            {/* <p>Name: {user?.name}</p>
-                            <p>Email: {user?.email}</p>
-                            <p className='mb-2'>Address: {user?.address}</p> */}
-                            <hr />
-                            {/* <p className='flex justify-between'>NID : {user?.nid}  {user?.nidFile && <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${user?.nidFile}`} alt="imag" />}</p>
-                            <p className='flex justify-between'>BIN : {user?.bin}  {user?.binFile && <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${user?.binFile}`} alt="imag" />}</p>
-                            <p className='flex justify-between mb-2'>TIN : {user?.tin}  {user?.tinFile && <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${user?.tinFile}`} alt="imag" />}</p> */}
-                            <hr />
-                            {/* <p>Github: {user?.githubProfile ? user?.githubProfile : "Didn't update yet"}</p>
-                            <p>Company Website: {user?.companyWebsite ? user?.companyWebsite : "Didn't update yet"}</p>
-                            <p>Behance: {user?.behance ? user?.behance : "Didn't update yet"}</p>
-                            <p className='mb-2'>LinkedIn: {user?.linkedInProfile ? user?.linkedInProfile : "Didn't update yet"}</p> */}
-                            <hr />
-                            {/* <p>Phone Number: {user?.phoneNumber ? user?.phoneNumber : "Didn't update yet"}</p>
-                            <p>Whatsapp Number: {user?.whatsappNumber ? user?.whatsappNumber : "Didn't update yet"}</p> */}
+
 
                         </div>
-                        {/* <div
+                        <div
                             className="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50">
 
-                            {user?.profile === "verified" ? <button
+                            <button
                                 type="button"
-                                className="inline-block rounded  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-orange-500 "
+                                className="inline-block rounded mr-6  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-orange-500 "
                                 data-te-ripple-init
                                 data-te-ripple-color="light"
-                                disabled
-                            // onClick={() => handleMakeVerified(user?._id)}
+                                onClick={() => handleApproved(selectedOrder?._id)}
                             >
-                                Already Verified
-                            </button> : <button
+                                Approved
+                            </button>
+                            <button
                                 type="button"
                                 className="inline-block rounded  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-green-700 "
                                 data-te-ripple-init
                                 data-te-ripple-color="light"
-                                onClick={() => handleMakeVerified(user?._id)}>
-                                Make Verified
-                            </button>}
+                                onClick={() => handleCanceled(selectedOrder?._id)}
+                            >
+                                Cancel
+                            </button>
 
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>

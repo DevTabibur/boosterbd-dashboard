@@ -31,7 +31,7 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
 const Navbar = ({ children }) => {
   const { currentColor, activeMenu, setActiveMenu, handleClick, isClicked, setScreenSize, screenSize } = useStateContext();
   const [activeUser, isLoading] = useActiveUser()
-  console.log('activeUser', activeUser)
+  // console.log('activeUser', activeUser?.phoneNumber)
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);

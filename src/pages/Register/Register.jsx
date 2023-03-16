@@ -127,7 +127,7 @@ const Login = () => {
             text: data?.message,
             icon: "success",
           });
-          navigate("/")
+          navigate("/dashboard")
         }
       });
   };
@@ -139,28 +139,19 @@ const Login = () => {
   //   return <Loader />;
   // }
   return (
-    <>
+    <div className='register-page'>
       <div className=" h-[100vh]">
         <div className="container mx-auto px-1 sm:px-4">
           <div className="flex content-center items-center justify-center h-[100vh]">
             <div className="w-full lg:w-5/12 sm:px-4 otp_width ">
-              <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-2xl rounded-lg border-0">
+              <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-2xl rounded-lg border-0 bg-white">
                 <div id="recaptcha-container"></div>
                 <div className="rounded-t mb-0 px-6 pt-6">
                   <div className="text-center">
-                    <h6 className="text-gray-600 text-md font-bold">Login With Phone Number</h6>
+                    <h6 className="text-gray-600 text-md font-bold">Register With Phone Number</h6>
                   </div>
                 </div>
-                <div className="flex flex-wrap mb-4 relative">
-                          <div className="w-full text-center">
-                            <small className="text-black">
-                              Do you already have an Account?{" "}
-                              <a className="text-blue-500" href="/register">
-                                click here
-                              </a>
-                            </small>
-                          </div>
-                        </div>
+
                 <div className="flex justify-center items-center flex-col lg:ml-[6px] px-4 lg:px-10 py-10 pt-0">
                   {showOTP ? (
                     <>
@@ -256,17 +247,6 @@ const Login = () => {
                             <span>Verify Phone</span>
                           </button>
                         </div>
-
-                        <div className="flex flex-wrap mt-6 relative">
-                          <div className="w-full text-center">
-                            <small className="text-black">
-                              Forget Password?{" "}
-                              <a className="text-blue-500" href="#">
-                                click here
-                              </a>
-                            </small>
-                          </div>
-                        </div>
                       </form>
                     </>
                   )}
@@ -277,7 +257,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

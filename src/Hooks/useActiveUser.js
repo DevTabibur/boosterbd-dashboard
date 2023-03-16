@@ -30,7 +30,7 @@ const useActiveUser = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            setIsLoading(false);
+
             if (data.code === 403 || data.code === 401 || data.code === 400) {
               return Swal.fire({
                 title: data?.status,
@@ -40,6 +40,7 @@ const useActiveUser = () => {
             } else {
               setActiveUser(data?.data);
             }
+            setIsLoading(false);
           });
       }
     }

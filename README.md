@@ -35,4 +35,5 @@
 1. user jodi 1st time use kore, ba keu jdi application theke localStorage theke color / theme setting delete dei, taile first time, sha kono theme toggle korte gelei, sparkLineError khasse... eita solve korte hobe..
 2. useAdmin and useUser er dependency sorai disi. project crush korte pare bole
 3. activeUser ee dependecy dibo.
-
+4. keu issa kore localStrorage theke token remove dile, page automatic login page e chole jabe.. eita inbuild kora lagbe
+5. mobile banking e payment with e onk gula option ase, payment gateway er. user j gateway te click dibe, sei gateway er number, nicher input field e dekhate hbe... top-up page e mobile banking ee ei kaj kora lagbe
