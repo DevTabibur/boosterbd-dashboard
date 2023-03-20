@@ -22,8 +22,8 @@ import Loader from './Loader/Loader';
 
 const Sidebar = () => {
   const [activeUser, isLoading] = useActiveUser();
-  // const [admin, adminLoading] = useAdmin(activeUser);
-  const admin = true;
+  const [admin, adminLoading] = useAdmin(activeUser);
+  // const admin = true;
 
 
 
@@ -50,7 +50,7 @@ const Sidebar = () => {
 
 
 
-  // console.log('admin', admin)
+  console.log('sidebar admin', admin)
 
 
   const userMenu = [

@@ -11,7 +11,6 @@ const RequireAdmin = () => {
     const [admin, adminLoading] = useAdmin(activeUser);
     // console.log('requireAdmin', activeUser, admin)
 
-
     // do not delete adminLoading, then it'll return admin falsy value
     if (adminLoading) {
         return <Loader />;
@@ -20,6 +19,8 @@ const RequireAdmin = () => {
     if (!activeUser || !admin) {
         return <Navigate to="/" state={{ from: location }} replace />;
     }
+
+
 
     return <Outlet />;
 

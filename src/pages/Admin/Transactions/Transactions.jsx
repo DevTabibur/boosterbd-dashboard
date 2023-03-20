@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { useStateContext } from "../../../contexts/ContextProvider";
 import { transactionData } from "../../../Database/transactionData";
 import useActiveUser from "../../../Hooks/useActiveUser";
+import Modal from '../../../components/Modal/Modal'
 
 const Transactions = () => {
     const [activeUser, isLoading] = useActiveUser()
@@ -17,7 +18,7 @@ const Transactions = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState('')
 
-    console.log('activeUser', activeUser)
+    console.log('internationalGateway', internationalGateway)
 
 
     const handleCheckboxChange = (event) => {
@@ -214,10 +215,11 @@ const Transactions = () => {
                         'content-type': 'application/json',
                         authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     },
+                    body: JSON.stringify({ status: "approved", phoneNumber: activeUser?.phoneNumber })
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log('mobile-banking approved', data)
+                        // console.log('mobile-banking approved', data)
                         if (data.code === 400) {
                             Swal.fire({
                                 title: data?.status,
@@ -245,8 +247,6 @@ const Transactions = () => {
 
         }
         else if (route === "internet-banking") {
-
-
             const confirmation = window.confirm("Are you want to Approved?")
             if (confirmation) {
                 const url = `http://localhost:5000/api/v1/top-up/internet-banking/${id}`;
@@ -256,10 +256,12 @@ const Transactions = () => {
                         'content-type': 'application/json',
                         authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     },
+                    body: JSON.stringify({ status: "approved", phoneNumber: activeUser?.phoneNumber })
+
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log('internet-banking approved', data)
+                        // console.log('internet-banking approved', data)
                         if (data.code === 400) {
                             Swal.fire({
                                 title: data?.status,
@@ -288,8 +290,6 @@ const Transactions = () => {
 
         }
         else if (route === "international-payment-gateway") {
-
-
             const confirmation = window.confirm("Are you want to Approved?")
             if (confirmation) {
                 const url = `http://localhost:5000/api/v1/top-up/international-payment-gateway/${id}`;
@@ -299,10 +299,12 @@ const Transactions = () => {
                         'content-type': 'application/json',
                         authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     },
+                    body: JSON.stringify({ status: "approved", phoneNumber: activeUser?.phoneNumber })
+
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log('international-payment-gateway approved', data)
+                        // console.log('international-payment-gateway approved', data)
                         if (data.code === 400) {
                             Swal.fire({
                                 title: data?.status,
@@ -333,58 +335,11 @@ const Transactions = () => {
         else {
             console.log('no route was found')
         }
-
-
-        // const confirmation = window.confirm("Are you want to Approved?")
-        // if (confirmation) {
-        //     const url = `http://localhost:5000/api/v1/top-up/cash/${id}`;
-        //     fetch(url, {
-        //         method: "PUT",
-        //         headers: {
-        //             'content-type': 'application/json',
-        //             authorization: `Bearer ${localStorage.getItem('accessToken')}`
-        //         },
-        //     })
-        //         .then(res => res.json())
-        //         .then(data => {
-        //             // console.log('cash approved', data)
-        //             if (data.code === 400) {
-        //                 Swal.fire({
-        //                     title: data?.status,
-        //                     text: data?.message,
-        //                     icon: "error"
-        //                 })
-        //             }
-        //             else if (data.code === 401) {
-        //                 Swal.fire({
-        //                     title: data?.status,
-        //                     text: data?.message,
-        //                     icon: "error"
-        //                 })
-        //             }
-        //             else {
-        //                 Swal.fire({
-        //                     title: data?.status,
-        //                     text: data?.message,
-        //                     icon: "success"
-        //                 })
-        //                 window.location.reload()
-        //             }
-        //         })
-        // }
-
     }
 
     // canceled order => This will show before approved the order
     const handleCanceled = (id, route) => {
-
-        console.log(id, route)
-
-
-
         if (route === "cash") {
-
-
             const confirmation = window.confirm("Are you want to canceled?")
             if (confirmation) {
                 const url = `http://localhost:5000/api/v1/top-up/cash/${id}`;
@@ -423,153 +378,138 @@ const Transactions = () => {
                         }
                     })
             }
+        }
+        else if (route === "mobile-banking") {
+            const confirmation = window.confirm("Are you want to Approved?")
+            if (confirmation) {
+                const url = `http://localhost:5000/api/v1/top-up/mobile-banking/${id}`;
+                fetch(url, {
+                    method: "PUT",
+                    headers: {
+                        'content-type': 'application/json',
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    },
+                    body: JSON.stringify({ status: "canceled", phoneNumber: activeUser?.phoneNumber })
 
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log('mobile-banking canceled', data)
+                        if (data.code === 400) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "error"
+                            })
+                        }
+                        else if (data.code === 401) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "error"
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "success"
+                            })
+                            window.location.reload()
+                        }
+                    })
+            }
 
         }
-        // else if (route === "mobile-banking") {
-        //     const confirmation = window.confirm("Are you want to Approved?")
-        //     if (confirmation) {
-        //         const url = `http://localhost:5000/api/v1/top-up/mobile-banking/${id}`;
-        //         fetch(url, {
-        //             method: "PUT",
-        //             headers: {
-        //                 'content-type': 'application/json',
-        //                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
-        //             },
-        //         })
-        //             .then(res => res.json())
-        //             .then(data => {
-        //                 console.log('mobile-banking approved', data)
-        //                 if (data.code === 400) {
-        //                     Swal.fire({
-        //                         title: data?.status,
-        //                         text: data?.message,
-        //                         icon: "error"
-        //                     })
-        //                 }
-        //                 else if (data.code === 401) {
-        //                     Swal.fire({
-        //                         title: data?.status,
-        //                         text: data?.message,
-        //                         icon: "error"
-        //                     })
-        //                 }
-        //                 else {
-        //                     Swal.fire({
-        //                         title: data?.status,
-        //                         text: data?.message,
-        //                         icon: "success"
-        //                     })
-        //                     window.location.reload()
-        //                 }
-        //             })
-        //     }
+        else if (route === "internet-banking") {
+            const confirmation = window.confirm("Are you want to Approved?")
+            if (confirmation) {
+                const url = `http://localhost:5000/api/v1/top-up/internet-banking/${id}`;
+                fetch(url, {
+                    method: "PUT",
+                    headers: {
+                        'content-type': 'application/json',
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    },
+                    body: JSON.stringify({ status: "canceled", phoneNumber: activeUser?.phoneNumber })
 
-        // }
-        // else if (route === "internet-banking") {
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        // console.log('internet-banking approved', data)
+                        if (data.code === 400) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "error"
+                            })
+                        }
+                        else if (data.code === 401) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "error"
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "success"
+                            })
+                            window.location.reload()
+                        }
+                    })
+            }
+        }
+        else if (route === "international-payment-gateway") {
+            const confirmation = window.confirm("Are you want to Approved?")
+            if (confirmation) {
+                const url = `http://localhost:5000/api/v1/top-up/international-payment-gateway/${id}`;
+                fetch(url, {
+                    method: "PUT",
+                    headers: {
+                        'content-type': 'application/json',
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    },
+                    body: JSON.stringify({ status: "canceled", phoneNumber: activeUser?.phoneNumber })
 
-
-        //     const confirmation = window.confirm("Are you want to Approved?")
-        //     if (confirmation) {
-        //         const url = `http://localhost:5000/api/v1/top-up/internet-banking/${id}`;
-        //         fetch(url, {
-        //             method: "PUT",
-        //             headers: {
-        //                 'content-type': 'application/json',
-        //                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
-        //             },
-        //         })
-        //             .then(res => res.json())
-        //             .then(data => {
-        //                 console.log('internet-banking approved', data)
-        //                 if (data.code === 400) {
-        //                     Swal.fire({
-        //                         title: data?.status,
-        //                         text: data?.message,
-        //                         icon: "error"
-        //                     })
-        //                 }
-        //                 else if (data.code === 401) {
-        //                     Swal.fire({
-        //                         title: data?.status,
-        //                         text: data?.message,
-        //                         icon: "error"
-        //                     })
-        //                 }
-        //                 else {
-        //                     Swal.fire({
-        //                         title: data?.status,
-        //                         text: data?.message,
-        //                         icon: "success"
-        //                     })
-        //                     window.location.reload()
-        //                 }
-        //             })
-        //     }
-
-
-        // }
-        // else if (route === "international-payment-gateway") {
-
-
-        //     const confirmation = window.confirm("Are you want to Approved?")
-        //     if (confirmation) {
-        //         const url = `http://localhost:5000/api/v1/top-up/international-payment-gateway/${id}`;
-        //         fetch(url, {
-        //             method: "PUT",
-        //             headers: {
-        //                 'content-type': 'application/json',
-        //                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
-        //             },
-        //         })
-        //             .then(res => res.json())
-        //             .then(data => {
-        //                 console.log('international-payment-gateway approved', data)
-        //                 if (data.code === 400) {
-        //                     Swal.fire({
-        //                         title: data?.status,
-        //                         text: data?.message,
-        //                         icon: "error"
-        //                     })
-        //                 }
-        //                 else if (data.code === 401) {
-        //                     Swal.fire({
-        //                         title: data?.status,
-        //                         text: data?.message,
-        //                         icon: "error"
-        //                     })
-        //                 }
-        //                 else {
-        //                     Swal.fire({
-        //                         title: data?.status,
-        //                         text: data?.message,
-        //                         icon: "success"
-        //                     })
-        //                     window.location.reload()
-        //                 }
-        //             })
-        //     }
-
-
-        // }
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log('international-payment-gateway approved', data)
+                        if (data.code === 400) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "error"
+                            })
+                        }
+                        else if (data.code === 401) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "error"
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "success"
+                            })
+                            window.location.reload()
+                        }
+                    })
+            }
+        }
         else {
             console.log('no route was found')
         }
-
-
-
-
-        // delete order => this will be deleted this order from db permanently
-        // approved order
-
-
     }
 
     const handleDeleted = (id, route) => {
-
         if (route === "cash") {
-
-
             const confirmation = window.confirm("Remind!. This order will deleted  from Database permanently")
             if (confirmation) {
                 const url = `http://localhost:5000/api/v1/top-up/cash/${id}`;
@@ -619,11 +559,149 @@ const Transactions = () => {
 
 
         }
-
-
-
         else if (route === "mobile-banking") {
-            console.log('route', route)
+            const confirmation = window.confirm("Remind!. This order will deleted  from Database permanently")
+            if (confirmation) {
+                const url = `http://localhost:5000/api/v1/top-up/mobile-banking/${id}`;
+                fetch(url, {
+                    method: "DELETE",
+                    headers: {
+                        // "content-type": "application/json",
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        // console.log("data deleted", data)
+                        if (data.code === 400) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.error,
+                                icon: "error"
+                            })
+                        }
+                        else if (data.code === 401) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "error"
+                            })
+                        }
+                        else if (data.code === 403) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "error"
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "success"
+                            })
+                            window.location.reload()
+                        }
+
+                    })
+            }
+        }
+        else if (route === "internet-banking") {
+            const confirmation = window.confirm("Remind!. This order will deleted  from Database permanently")
+            if (confirmation) {
+                const url = `http://localhost:5000/api/v1/top-up/internet-banking/${id}`;
+                fetch(url, {
+                    method: "DELETE",
+                    headers: {
+                        // "content-type": "application/json",
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        // console.log("data deleted", data)
+                        if (data.code === 400) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.error,
+                                icon: "error"
+                            })
+                        }
+                        else if (data.code === 401) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "error"
+                            })
+                        }
+                        else if (data.code === 403) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "error"
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "success"
+                            })
+                            window.location.reload()
+                        }
+
+                    })
+            }
+        }
+        else if (route === "international-payment-gateway") {
+            const confirmation = window.confirm("Remind!. This order will deleted  from Database permanently")
+            if (confirmation) {
+                const url = `http://localhost:5000/api/v1/top-up/international-payment-gateway/${id}`;
+                fetch(url, {
+                    method: "DELETE",
+                    headers: {
+                        // "content-type": "application/json",
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        // console.log("data deleted", data)
+                        if (data.code === 400) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.error,
+                                icon: "error"
+                            })
+                        }
+                        else if (data.code === 401) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "error"
+                            })
+                        }
+                        else if (data.code === 403) {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "error"
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                title: data?.status,
+                                text: data?.message,
+                                icon: "success"
+                            })
+                            window.location.reload()
+                        }
+
+                    })
+            }
+        }
+        else {
+            console.log('no route was found')
         }
 
     }
@@ -696,7 +774,6 @@ const Transactions = () => {
                 </div>
 
                 {/* cash */}
-
                 {cash.length >= 0 &&
                     <div className="grid md:grid-cols-1 my-0 mx-4 ">
                         <div className="overflow-x-auto">
@@ -774,16 +851,28 @@ const Transactions = () => {
                             <table className="table-auto w-full  mt-10 font-normal">
                                 <thead className="text-white">
                                     <tr className="text-black flex md:flex-row flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+                                        <th className="p-3 text-left text-[#717D82]">SL</th>
                                         <th className="p-3 text-left text-[#717D82]">Date</th>
                                         <th className="p-3 text-left text-[#717D82]">Payment Proof</th>
+                                        <th className="p-3 text-left text-[#717D82]">
+                                            Payment With
+                                        </th>
                                         <th className="p-3 text-left text-[#717D82]">Paid To</th>
+                                        <th className="p-3 text-left text-[#717D82]">
+                                            Sender Number
+                                        </th>
 
                                         <th className="p-3 text-left text-[#717D82]">
                                             Payment For
                                         </th>
                                         <th className="p-3 text-left text-[#717D82]">
-                                            Payment Method
+                                            Amount
                                         </th>
+                                        <th className="p-3 text-left text-[#717D82]">
+                                            Status
+                                        </th>
+
+
                                         <th className="p-3 text-left text-[#717D82]">Details</th>
                                     </tr>
                                 </thead>
@@ -792,17 +881,27 @@ const Transactions = () => {
                                 {mobileBanking.map((data, i) => {
                                     return (<tbody key={i} className="">
                                         <tr className="flex md:flex-row flex-no-wrap sm:table-row mb-2 sm:mb-0">
+                                            <td className="text-[#464F53] font-normal  p-3">{i + 1}</td>
                                             <td className="text-[#464F53] font-normal  p-3">{data.createdAt}</td>
-                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`http://localhost:5000/${data.cashProof}`} alt='cashProof' /></td>
+                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`http://localhost:5000/${data.transactionScreenShot}`} alt='transactionScreenShot' /></td>
+
+                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.paymentWith}</td>
                                             <td className="text-[#464F53] font-normal   p-3 truncate">
                                                 {data.paidTo}
                                             </td>
+                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.senderNumber}</td>
+
                                             <td className="text-[#464F53] font-normal   p-3 truncate">
                                                 {data.paymentFor}
                                             </td>
+                                            <td className="text-[#464F53] font-normal   p-3 truncate">
+                                                {data.amountToAdd}
+                                            </td>
+                                            <td className="text-[#464F53] font-normal   p-3 truncate">
+                                                {data.status}
+                                            </td>
 
-                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.paymentMethod}</td>
-                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.paymentMethod}</td>
+
                                             <td >
                                                 <button
                                                     onClick={() => handleModalOpen(data)}
@@ -835,15 +934,25 @@ const Transactions = () => {
                             <table className="table-auto w-full  mt-10 font-normal">
                                 <thead className="text-white">
                                     <tr className="text-black flex md:flex-row flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+                                        <th className="p-3 text-left text-[#717D82]">SL</th>
                                         <th className="p-3 text-left text-[#717D82]">Date</th>
                                         <th className="p-3 text-left text-[#717D82]">Payment Proof</th>
-                                        <th className="p-3 text-left text-[#717D82]">Paid To</th>
+                                        <th className="p-3 text-left text-[#717D82]">Account Number</th>
 
+                                        <th className="p-3 text-left text-[#717D82]">
+                                            Customer Account
+                                        </th>
+                                        <th className="p-3 text-left text-[#717D82]">
+                                            Bank
+                                        </th>
                                         <th className="p-3 text-left text-[#717D82]">
                                             Payment For
                                         </th>
                                         <th className="p-3 text-left text-[#717D82]">
-                                            Payment Method
+                                            Amount
+                                        </th>
+                                        <th className="p-3 text-left text-[#717D82]">
+                                            Status
                                         </th>
                                         <th className="p-3 text-left text-[#717D82]">Details</th>
                                     </tr>
@@ -853,17 +962,22 @@ const Transactions = () => {
                                 {internetBanking.map((data, i) => {
                                     return (<tbody key={i} className="">
                                         <tr className="flex md:flex-row flex-no-wrap sm:table-row mb-2 sm:mb-0">
+                                            <td className="text-[#464F53] font-normal  p-3">{i + 1}</td>
                                             <td className="text-[#464F53] font-normal  p-3">{data.createdAt}</td>
-                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`http://localhost:5000/${data.cashProof}`} alt='cashProof' /></td>
+                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`http://localhost:5000/${data.internetBankingProof}`} alt='internetBankingProof' /></td>
                                             <td className="text-[#464F53] font-normal   p-3 truncate">
-                                                {data.paidTo}
+                                                {data.accountNumber}
                                             </td>
                                             <td className="text-[#464F53] font-normal   p-3 truncate">
-                                                {data.paymentFor}
+                                                {data.customerAccountNumber}
+                                            </td>
+                                            <td className="text-[#464F53] font-normal   p-3 truncate">
+                                                {data.selectBank}
                                             </td>
 
-                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.paymentMethod}</td>
-                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.paymentMethod}</td>
+                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.paymentFor}</td>
+                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.amountToAdd}</td>
+                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.status}</td>
                                             <td >
                                                 <button
                                                     onClick={() => handleModalOpen(data)}
@@ -897,9 +1011,14 @@ const Transactions = () => {
                             <table className="table-auto w-full  mt-10 font-normal">
                                 <thead className="text-white">
                                     <tr className="text-black flex md:flex-row flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+                                        <th className="p-3 text-left text-[#717D82]">SL</th>
                                         <th className="p-3 text-left text-[#717D82]">Date</th>
                                         <th className="p-3 text-left text-[#717D82]">Payment Proof</th>
-                                        <th className="p-3 text-left text-[#717D82]">Paid To</th>
+                                        <th className="p-3 text-left text-[#717D82]">
+                                            Payment Gateway
+                                        </th>
+                                        <th className="p-3 text-left text-[#717D82]">Account Mail</th>
+                                        <th className="p-3 text-left text-[#717D82]">Customer Account Mail</th>
 
                                         <th className="p-3 text-left text-[#717D82]">
                                             Payment For
@@ -907,6 +1026,10 @@ const Transactions = () => {
                                         <th className="p-3 text-left text-[#717D82]">
                                             Amount
                                         </th>
+                                        <th className="p-3 text-left text-[#717D82]">
+                                            Status
+                                        </th>
+
                                         <th className="p-3 text-left text-[#717D82]">Details</th>
                                     </tr>
                                 </thead>
@@ -915,17 +1038,22 @@ const Transactions = () => {
                                 {internationalGateway.map((data, i) => {
                                     return (<tbody key={i} className="">
                                         <tr className="flex md:flex-row flex-no-wrap sm:table-row mb-2 sm:mb-0">
+                                            <td className="text-[#464F53] font-normal  p-3">{i + 1}</td>
                                             <td className="text-[#464F53] font-normal  p-3">{data.createdAt}</td>
-                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`http://localhost:5000/${data.cashProof}`} alt='cashProof' /></td>
+                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`http://localhost:5000/${data.internationalGatewayProof}`} alt='internationalGatewayProof' /></td>
+                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.paymentGateway}</td>
                                             <td className="text-[#464F53] font-normal   p-3 truncate">
-                                                {data.paidTo}
+                                                {data.accountMail}
+                                            </td>
+                                            <td className="text-[#464F53] font-normal   p-3 truncate">
+                                                {data.customerAccountMail}
                                             </td>
                                             <td className="text-[#464F53] font-normal   p-3 truncate">
                                                 {data.paymentFor}
                                             </td>
 
-                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.paymentMethod}</td>
                                             <td className=" text-[#464F53] font-normal  p-3 ">{data.amountToAdd}</td>
+                                            <td className=" text-[#464F53] font-normal  p-3 ">{data.status}</td>
                                             <td >
                                                 <button
                                                     onClick={() => handleModalOpen(data)}
@@ -964,128 +1092,3 @@ export default Transactions;
 
 
 
-const Modal = ({ selectedOrder, handleApproved, handleCanceled, handleDeleted }) => {
-    // console.log('modal selectedOrder', selectedOrder.paymentMethod)
-    // status canceled => approve, already canceled, delete from db button thakbe
-    // status approved => already approve,  delete from db button thakbe
-    // status pending => make approve, make canceled,
-    return (
-        <>
-            <div
-                data-te-modal-init
-                className="fixed top-0 left-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
-                id="exampleModal"
-                tabIndex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div
-                    data-te-modal-dialog-ref
-                    className="mt-32 pointer-events-none relative w-auto translate-y-[-50px] opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px]">
-                    <div
-                        className="min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none dark:bg-neutral-600">
-                        <div
-                            className="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50">
-                            <h5
-                                className="text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200"
-                                id="exampleModalLabel">
-                                Order ID : {selectedOrder?._id}
-                            </h5>
-
-                            <button
-                                type="button"
-                                className="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
-                                data-te-modal-dismiss
-                                aria-label="Close">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
-                                    stroke="currentColor"
-                                    className="h-6 w-6">
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div className="relative flex-auto p-4" data-te-modal-body-ref>
-                            <p className='flex justify-between'>Screen shot (hover for zoom): <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${selectedOrder?.cashProof}`} alt="imag" /></p>
-                            <hr></hr>
-                            <p>Date: {selectedOrder?.createdAt}</p>
-
-                            {/* Modal body text goes here. */}
-                            <p>Payment Method : {selectedOrder?.paymentMethod}</p>
-                            <p>Amount : {selectedOrder?.amountToAdd} BDT</p>
-                            <p>Payment For : {selectedOrder?.paymentFor}</p>
-                            <hr />
-                            <p>Phone Number : {selectedOrder?.phoneNumber}</p>
-
-
-                        </div>
-                        <div
-                            className="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50">
-                            {selectedOrder?.status === "approved" ? <button
-                                type="button"
-                                className="inline-block rounded mr-6  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-orange-500 cursor-not-allowed"
-                                data-te-ripple-init
-                                data-te-ripple-color="light"
-                            >
-                                Already Approved
-                            </button> : <button
-                                type="button"
-                                className="inline-block rounded mr-6  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-orange-500 "
-                                data-te-ripple-init
-                                data-te-ripple-color="light"
-                                onClick={() => handleApproved(selectedOrder?._id, selectedOrder?.paymentMethod)}
-                            >
-                                Approved
-                            </button>}
-                            {/* delete button. this will be deleted this order from db */}
-                            {selectedOrder?.status === "approved" && <button
-                                type="button"
-                                className="inline-block mr-4 rounded  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-red-700 "
-                                data-te-ripple-init
-                                data-te-ripple-color="light"
-                                onClick={() => handleDeleted(selectedOrder?._id, selectedOrder?.paymentMethod)}
-                            >
-                                Delete from DB
-                            </button>}
-                            {selectedOrder?.status === "canceled" && <button
-                                type="button"
-                                className="inline-block mr-4 rounded  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-red-700 "
-                                data-te-ripple-init
-                                data-te-ripple-color="light"
-                                onClick={() => handleDeleted(selectedOrder?._id, selectedOrder?.paymentMethod)}
-                            >
-                                Delete from DB
-                            </button>}
-
-                            {selectedOrder?.status === "pending" && <button
-                                type="button"
-                                className="inline-block rounded  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-red-700 "
-                                data-te-ripple-init
-                                data-te-ripple-color="light"
-                                onClick={() => handleCanceled(selectedOrder?._id, selectedOrder?.paymentMethod)}
-                            >
-                                Cancel
-                            </button>}
-
-                            {selectedOrder?.status === "canceled" && <button
-                                type="button"
-                                className="inline-block rounded cursor-not-allowed  px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white bg-red-700 "
-                                data-te-ripple-init
-                                data-te-ripple-color="light"
-                            >
-                                Already Canceled
-                            </button>}
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
-};
