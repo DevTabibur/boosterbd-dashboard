@@ -8,6 +8,7 @@ import useGetMobileBanking from '../../Hooks/useGetMobileBanking';
 import useInternationalGateway from '../../Hooks/useInternationalGateway';
 
 const FundManagement = () => {
+    // importing custom hooks
     const [activeUser, isLoading] = useActiveUser()
     const { currentColor } = useStateContext()
     const [getCash] = useGetCash();
@@ -27,27 +28,24 @@ const FundManagement = () => {
     const [selectedMethod, setSelectedMethod] = useState("");
 
 
-    // cash filtered with phone number
+    // fund filtered with phone number
     const CashData = getCash.filter(obj => obj.phoneNumber === activeUser?.phoneNumber);
     const MobileBankingData = getMobileBanking.filter(obj => obj.phoneNumber === activeUser?.phoneNumber);
     const InternationalGatewayData = getInternationalGateway.filter(obj => obj.phoneNumber === activeUser?.phoneNumber);
     const InternetBankingData = getInternetBanking.filter(obj => obj.phoneNumber === activeUser?.phoneNumber);
 
-    // console.log('MobileBankingData', MobileBankingData)
+    console.log('InternationalGatewayData', InternationalGatewayData)
     // console.log('CashData', CashData)
     // console.log('InternationalGatewayData', InternationalGatewayData)
     // console.log('InternetBankingData', InternetBankingData)
 
     const handleCheckboxChange = (event) => {
         setSelectedMethod(event.target.value);
-        console.log('selected method', event.target.value)
         if (event.target.value === "Cash") {
             setMobileBanking(false)
             setInternationalGateway(false)
             setInternetBanking(false)
             setCash(true)
-
-
         }
         else if (event.target.value === "Mobile Banking") {
             setCash(false)
@@ -55,9 +53,6 @@ const FundManagement = () => {
             setInternationalGateway(false)
             setInternetBanking(false)
             setMobileBanking(true)
-
-
-
         }
         else if (event.target.value === "Internet Banking") {
             setCash(false)
@@ -65,9 +60,6 @@ const FundManagement = () => {
             setInternationalGateway(false)
             setMobileBanking(false)
             setInternetBanking(true)
-
-
-
         }
         else if (event.target.value === "International Payment Gateway") {
             setCash(false)
@@ -75,12 +67,8 @@ const FundManagement = () => {
             setMobileBanking(false)
             setInternetBanking(false)
             setInternationalGateway(true)
-
-
-
-
         }
-        // console.log("Selected payment method:", event.target.value);
+        console.log("Selected payment method:", event.target.value);
 
     };
 
@@ -252,7 +240,7 @@ const FundManagement = () => {
                             onChange={handleCheckboxChange}
                         />
                         <label className="text-base font-semibold" htmlFor="Cash">
-                            Cash ( {CashData.length} )
+                            Cash
                         </label>
                     </div>
                     <div>
@@ -320,7 +308,6 @@ const FundManagement = () => {
                                         Amount
                                     </th>
                                     <th className="p-3 text-left text-gray-600">Status</th>
-                                    <th className="p-3 text-left text-gray-600">Details</th>
                                 </tr>
                             </thead>
 
@@ -345,9 +332,15 @@ const FundManagement = () => {
                                             {data?.amountToAdd}
                                         </td>
 
-                                        <td className="text-gray-600 p-3 ">
+                                        {data?.status === "approved" && <td className="text-green-600 p-3 font-bold">
                                             {data?.status}
-                                        </td>
+                                        </td>}
+                                        {data?.status === "canceled" && <td className="text-red-600 p-3 font-bold">
+                                            {data?.status}
+                                        </td>}
+                                        {data?.status === "pending" && <td className="text-orange-600 p-3 font-bold">
+                                            {data?.status}
+                                        </td>}
 
                                     </tr>
                                 </tbody>)
@@ -384,8 +377,8 @@ const FundManagement = () => {
 
                                         <td className="text-gray-600 p-3 truncate">{i + 1}</td>
                                         <td className="text-gray-600 p-3 ">{data?.createdAt}</td>
-                                        {data?.cashProof ? <td className="text-gray-600 p-3 ">
-                                            <img className='h-10 w-10 relative' src={`http://localhost:5000/${data?.cashProof}`} alt="imag" />
+                                        {data?.transactionScreenShot ? <td className="text-gray-600 p-3 ">
+                                            <img className='h-10 w-10 relative' src={`http://localhost:5000/${data?.transactionScreenShot}`} alt="transactionScreenShot" />
                                         </td> : <td className="text-gray-600 p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
 
                                         <td className="text-gray-600 p-3 ">
@@ -398,9 +391,15 @@ const FundManagement = () => {
                                             {data?.amountToAdd}
                                         </td>
 
-                                        <td className="text-gray-600 p-3 ">
-                                            <button style={{ backgroundColor: currentColor }}>DETAILS</button>
-                                        </td>
+                                        {data?.status === "approved" && <td className="text-green-600 p-3 font-bold">
+                                            {data?.status}
+                                        </td>}
+                                        {data?.status === "canceled" && <td className="text-red-600 p-3 font-bold">
+                                            {data?.status}
+                                        </td>}
+                                        {data?.status === "pending" && <td className="text-orange-600 p-3 font-bold">
+                                            {data?.status}
+                                        </td>}
 
                                     </tr>
                                 </tbody>)
@@ -419,9 +418,17 @@ const FundManagement = () => {
                                     <th className="p-3 text-left text-gray-600">SL.</th>
                                     <th className="p-3 text-left text-gray-600">Date</th>
                                     <th className="p-3 text-left text-gray-600">Payment Proof</th>
-                                    <th className="p-3 text-left text-gray-600">Bank</th>
                                     <th className="p-3 text-left text-gray-600">
-                                        Customer Account
+                                        Account Number
+                                    </th>
+                                    <th className="p-3 text-left text-gray-600">
+                                        Customer Account Number
+                                    </th>
+                                    <th className="p-3 text-left text-gray-600">Bank</th>
+
+
+                                    <th className="p-3 text-left text-gray-600">
+                                        Payment For
                                     </th>
                                     <th className="p-3 text-left text-gray-600">
                                         Amount
@@ -432,7 +439,116 @@ const FundManagement = () => {
 
                             {/* mobile banking filtered data */}
                             {InternetBankingData.map((data, i) => {
-                                console.log('internet', data)
+                                return (<tbody key={i}>
+                                    <tr className="flex md:flex-row flex-no wrap sm:table-row mb-2 sm:mb-0 text-[14px]">
+
+                                        <td className="text-gray-600 p-3 truncate">{i + 1}</td>
+                                        <td className="text-gray-600 p-3 ">{data?.createdAt}</td>
+                                        {data?.internetBankingProof ? <td className="text-gray-600 p-3 ">
+                                            <img className='h-10 w-10 relative' src={`http://localhost:5000/${data?.internetBankingProof}`} alt="internetBankingProof" />
+                                        </td> : <td className="text-gray-600 p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
+
+                                        <td className="text-gray-600 p-3 ">
+                                            {data?.accountNumber}
+                                        </td>
+                                        <td className="text-gray-600 p-3 ">
+                                            {data?.customerAccountNumber}
+                                        </td>
+                                        <td className="text-gray-600 p-3 ">
+                                            {data?.selectBank}
+                                        </td>
+                                        <td className="text-gray-600 p-3 ">
+                                            {data?.paymentFor}
+                                        </td>
+                                        <td className="text-gray-600 p-3 ">
+                                            {data?.amountToAdd}
+                                        </td>
+
+                                        {data?.status === "approved" && <td className="text-green-600 p-3 font-bold">
+                                            {data?.status}
+                                        </td>}
+                                        {data?.status === "canceled" && <td className="text-red-600 p-3 font-bold">
+                                            {data?.status}
+                                        </td>}
+                                        {data?.status === "pending" && <td className="text-orange-600 p-3 font-bold">
+                                            {data?.status}
+                                        </td>}
+
+                                    </tr>
+                                </tbody>)
+                            })}
+                        </table>
+                    </div>
+                </div>
+            }
+            {/* International Payment Gateway  */}
+            {selectedMethod === "International Payment Gateway" &&
+                <div className="grid md:grid-cols-1 my-0 mx-4 ">
+                    <div className="overflow-x-auto">
+                        <table className="table-auto w-full  mt-10 font-normal">
+                            <thead className="text-white">
+                                <tr className="text-black flex md:flex-row flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+                                    <th className="p-3 text-left text-gray-600">SL.</th>
+                                    <th className="p-3 text-left text-gray-600">Date</th>
+                                    <th className="p-3 text-left text-gray-600">Payment Proof</th>
+                                    <th className="p-3 text-left text-gray-600">
+                                        Account Mail
+                                    </th>
+                                    <th className="p-3 text-left text-gray-600">
+                                        Customer Account Mail
+                                    </th>
+                                    <th className="p-3 text-left text-gray-600">Payment Gateway</th>
+
+
+                                    <th className="p-3 text-left text-gray-600">
+                                        Payment For
+                                    </th>
+                                    <th className="p-3 text-left text-gray-600">
+                                        Amount
+                                    </th>
+                                    <th className="p-3 text-left text-gray-600">Details</th>
+                                </tr>
+                            </thead>
+
+                            {/* international payment gateway filtered data */}
+                            {InternationalGatewayData.map((data, i) => {
+                                return (<tbody key={i}>
+                                    <tr className="flex md:flex-row flex-no wrap sm:table-row mb-2 sm:mb-0 text-[14px]">
+
+                                        <td className="text-gray-600 p-3 truncate">{i + 1}</td>
+                                        <td className="text-gray-600 p-3 ">{data?.createdAt}</td>
+                                        {data?.internationalGatewayProof ? <td className="text-gray-600 p-3 ">
+                                            <img className='h-10 w-10 relative' src={`http://localhost:5000/${data?.internationalGatewayProof}`} alt="internationalGatewayProof" />
+                                        </td> : <td className="text-gray-600 p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
+
+                                        <td className="text-gray-600 p-3 ">
+                                            {data?.accountMail}
+                                        </td>
+                                        <td className="text-gray-600 p-3 ">
+                                            {data?.customerAccountMail}
+                                        </td>
+                                        <td className="text-gray-600 p-3 ">
+                                            {data?.paymentGateway}
+                                        </td>
+                                        <td className="text-gray-600 p-3 ">
+                                            {data?.paymentFor}
+                                        </td>
+                                        <td className="text-gray-600 p-3 ">
+                                            {data?.amountToAdd}
+                                        </td>
+
+                                        {data?.status === "approved" && <td className="text-green-600 p-3 font-bold">
+                                            {data?.status}
+                                        </td>}
+                                        {data?.status === "canceled" && <td className="text-red-600 p-3 font-bold">
+                                            {data?.status}
+                                        </td>}
+                                        {data?.status === "pending" && <td className="text-orange-600 p-3 font-bold">
+                                            {data?.status}
+                                        </td>}
+
+                                    </tr>
+                                </tbody>)
                             })}
                         </table>
                     </div>
