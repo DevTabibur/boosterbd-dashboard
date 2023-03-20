@@ -16,6 +16,8 @@ const MobileBanking = () => {
     const [notify, setNotify] = useState(false)
     // console.log('mobileBanking', mobileBanking)
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+
     const handleCheckboxChange = (event) => {
         setSelectedMethod(event.target.value);
         // console.log('payment method', event.target.value)
@@ -24,6 +26,9 @@ const MobileBanking = () => {
     const handlePaymentWith = (e) => {
         setSelectedPaymentWay(e.target.value);
         // console.log('payment way', e.target.value)
+        // if (e.target.value === "Upay") {
+        //     console.log('upay number clicked')
+        // }
     }
 
 
@@ -111,7 +116,7 @@ const MobileBanking = () => {
                                     icon: "success",
                                 });
                                 reset();
-                                // window.location.reload();
+                                window.location.reload();
                             }
                         });
                 }
@@ -238,7 +243,10 @@ const MobileBanking = () => {
 
                     </div>
                     <hr className='my-2' />
+
+
                     {/* paid to */}
+
                     <div className='grid md:grid-cols-2  gap-4  '>
                         <div className="payment-title">Paid To *</div>
                         <div className="">
@@ -253,9 +261,28 @@ const MobileBanking = () => {
                                     },
                                 })}
                             >
-                                <option selected>Please Select</option>
-                                <option value="+88 0123 622 333">+88 0123 622 333</option>
-                                <option value="+88 0123 622 444">+88 0123 622 444</option>
+                                {selectedPaymentWay === "bKash" && <>
+                                    <option value="Bkash personal 01756063729">01756063729 (Bkash personal)</option>
+                                    <option value="Bkash merchant 01749935515(1)">01749935515 (Bkash merchant 1 )</option>
+                                    <option value="Bkash merchant 01722570947(2)">01722570947 (Bkash merchant 2 )</option>
+                                </>}
+                                {selectedPaymentWay === "Nagad" && <>
+                                    <option value="Nagad 01756063729">01756063729 (Nagad)</option>
+                                    <option value="Nagad merchant 01749935515">01749935515 (Nagad merchant)</option>
+                                </>}
+                                {selectedPaymentWay === "Rocket" && <>
+                                    <option value="Rocket 017560637291">017560637291 (Rocket)</option>
+                                </>}
+                                {selectedPaymentWay === "Upay" && <>
+                                    <option value="Upay 01756063729">01756063729 (Upay)</option>
+                                </>}
+                                {selectedPaymentWay === "mCash" && <><option>Number will be updated very soon</option>
+                                </>}
+                                {selectedPaymentWay === "sureCash" && <>
+                                    <option value="SureCash 017560637294">017560637294 (SureCash)</option>
+                                </>}
+
+
                             </select>
 
                             <small className="text-[#FF4B2B] ml-2">
@@ -268,6 +295,9 @@ const MobileBanking = () => {
                         </div>
 
                     </div>
+
+
+
                     <hr className='my-2' />
                     {/* transactionID */}
                     <div className='grid md:grid-cols-2  gap-4  '>

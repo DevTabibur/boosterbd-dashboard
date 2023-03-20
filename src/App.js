@@ -40,6 +40,7 @@ import publicRoutes from "./Router/publicRoutes";
 import privateRoutes from "./Router/privateRoutes";
 import RequireAdmin from "./Authentication/RequireAdmin";
 import Verification from "./pages/Admin/Verification";
+import toast, { Toaster } from 'react-hot-toast';
 const App = () => {
   const {
     setCurrentColor,
@@ -75,40 +76,41 @@ const App = () => {
         </Route>
 
         {/* user routes  */}
-        {/* <Route element={<RequireUser></RequireUser>}> */}
-          <Route path="/claim" element={<DashboardLayout><Claim /></DashboardLayout>} />
-          <Route path="/top-up" element={<DashboardLayout><TopUp /></DashboardLayout>} />
-          <Route path="/fund-management" element={<DashboardLayout><FundManagement /></DashboardLayout>} />
-          <Route path="/ad-account-view" element={<DashboardLayout><AdAccountView /></DashboardLayout>} />
-          <Route path="/page-requests" element={<DashboardLayout><PageRequests /></DashboardLayout>} />
-          <Route path="/business-manager-requests" element={<DashboardLayout><BusinessManagerRequests /></DashboardLayout>} />
-          <Route path="/services" element={<DashboardLayout><Services /></DashboardLayout>} />
-          <Route path="/order" element={<DashboardLayout><Order /></DashboardLayout>} />
-          <Route path="/limit-update" element={<DashboardLayout><LimitUpdate /></DashboardLayout>} />
-          <Route path="/payment-method" element={<DashboardLayout><PaymentMethod /></DashboardLayout>} />
-          <Route path="/package" element={<DashboardLayout><CurrentPackage /></DashboardLayout>} />
-          <Route path="/setting" element={<DashboardLayout><Setting /></DashboardLayout>} />
-        {/* </Route> */}
+        <Route element={<RequireUser></RequireUser>}>
+        <Route path="/claim" element={<DashboardLayout><Claim /></DashboardLayout>} />
+        <Route path="/top-up" element={<DashboardLayout><TopUp /></DashboardLayout>} />
+        <Route path="/fund-management" element={<DashboardLayout><FundManagement /></DashboardLayout>} />
+        <Route path="/ad-account-view" element={<DashboardLayout><AdAccountView /></DashboardLayout>} />
+        <Route path="/page-requests" element={<DashboardLayout><PageRequests /></DashboardLayout>} />
+        <Route path="/business-manager-requests" element={<DashboardLayout><BusinessManagerRequests /></DashboardLayout>} />
+        <Route path="/services" element={<DashboardLayout><Services /></DashboardLayout>} />
+        <Route path="/order" element={<DashboardLayout><Order /></DashboardLayout>} />
+        <Route path="/limit-update" element={<DashboardLayout><LimitUpdate /></DashboardLayout>} />
+        <Route path="/payment-method" element={<DashboardLayout><PaymentMethod /></DashboardLayout>} />
+        <Route path="/package" element={<DashboardLayout><CurrentPackage /></DashboardLayout>} />
+        <Route path="/setting" element={<DashboardLayout><Setting /></DashboardLayout>} />
+        </Route>
 
 
 
 
 
         {/* Admin routes */}
-        {/* <Route element={<RequireAdmin></RequireAdmin>}> */}
-          <Route path="/create-ad-account" element={<DashboardLayout><CreateAdAccount /></DashboardLayout>} />
-          <Route path="/ad-account-requests-view" element={<DashboardLayout><AdAccountRequestsView /></DashboardLayout>} />
-          <Route path="/transactions" element={<DashboardLayout><Transactions /></DashboardLayout>} />
-          <Route path="/business-manager" element={<DashboardLayout><BusinessManager /></DashboardLayout>} />
-          <Route path="/add-service" element={<DashboardLayout><AddServices /></DashboardLayout>} />
-          <Route path="/manage-users" element={<DashboardLayout><ManageUsers /></DashboardLayout>} />
-          <Route path="/giving-permission" element={<DashboardLayout><GivingPermission /></DashboardLayout>} />
-          <Route path="/currency" element={<DashboardLayout><Currency /></DashboardLayout>} />
-          <Route path="/spending-rate" element={<DashboardLayout><SpendingRate /></DashboardLayout>} />
-          <Route path="/verification" element={<DashboardLayout><Verification /></DashboardLayout>} />
-        {/* </Route> */}
+        <Route element={<RequireAdmin></RequireAdmin>}>
+        <Route path="/create-ad-account" element={<DashboardLayout><CreateAdAccount /></DashboardLayout>} />
+        <Route path="/ad-account-requests-view" element={<DashboardLayout><AdAccountRequestsView /></DashboardLayout>} />
+        <Route path="/transactions" element={<DashboardLayout><Transactions /></DashboardLayout>} />
+        <Route path="/business-manager" element={<DashboardLayout><BusinessManager /></DashboardLayout>} />
+        <Route path="/add-service" element={<DashboardLayout><AddServices /></DashboardLayout>} />
+        <Route path="/manage-users" element={<DashboardLayout><ManageUsers /></DashboardLayout>} />
+        <Route path="/giving-permission" element={<DashboardLayout><GivingPermission /></DashboardLayout>} />
+        <Route path="/currency" element={<DashboardLayout><Currency /></DashboardLayout>} />
+        <Route path="/spending-rate" element={<DashboardLayout><SpendingRate /></DashboardLayout>} />
+        <Route path="/verification" element={<DashboardLayout><Verification /></DashboardLayout>} />
+        </Route>
 
       </Routes>
+      <Toaster />
     </>
   );
 };

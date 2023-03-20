@@ -114,7 +114,7 @@ const Cash = () => {
                                     icon: "success",
                                 });
                                 reset();
-                                // window.location.reload();
+                                window.location.reload();
                             }
                         });
                 }

@@ -21,7 +21,7 @@ const InternetBanking = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = data => {
-        console.log('data', data)
+        // console.log('data', data)
         const formData = new FormData();
         formData.append("paymentMethod", "Internet-Banking");
         formData.append("paymentFor", selectedMethod);
@@ -102,7 +102,7 @@ const InternetBanking = () => {
                                     icon: "success",
                                 });
                                 reset();
-                                // window.location.reload();
+                                window.location.reload();
                             }
                         });
                 }
@@ -173,7 +173,6 @@ const InternetBanking = () => {
                                     }
                                 })}
                             >
-                                <option selected>Select From List</option>
                                 <option value="Dhaka Bank">Dhaka Bank</option>
                                 <option value="City Bank">City Bank</option>
                                 <option value="Eastern Bank">Eastern Bank</option>

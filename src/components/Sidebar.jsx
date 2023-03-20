@@ -58,26 +58,26 @@ const Sidebar = () => {
       name: 'dashboard',
       icon: <FiShoppingBag />,
     },
-    {
-      name: 'order',
-      icon: <GrOrderedList />,
-    },
-    {
-      name: 'products',
-      icon: <IoMdContacts />,
-    },
-    {
-      name: 'customers',
-      icon: <RiContactsLine />,
-    },
-    {
-      name: 'review',
-      icon: <MdReviews />,
-    },
-    {
-      name: 'claim',
-      icon: <GiChargedArrow />,
-    },
+    // {
+    //   name: 'order',
+    //   icon: <GrOrderedList />,
+    // },
+    // {
+    //   name: 'products',
+    //   icon: <IoMdContacts />,
+    // },
+    // {
+    //   name: 'customers',
+    //   icon: <RiContactsLine />,
+    // },
+    // {
+    //   name: 'review',
+    //   icon: <MdReviews />,
+    // },
+    // {
+    //   name: 'claim',
+    //   icon: <GiChargedArrow />,
+    // },
     {
       name: 'top-up',
       icon: <BiLoader />,
@@ -98,18 +98,18 @@ const Sidebar = () => {
       name: 'business-manager-requests',
       icon: <MdBusiness />,
     },
-    {
-      name: 'services',
-      icon: <RiServiceFill />,
-    },
+    // {
+    //   name: 'services',
+    //   icon: <RiServiceFill />,
+    // },
     {
       name: 'limit-update',
       icon: <MdUpdate />,
     },
-    {
-      name: 'package',
-      icon: <BiPackage />,
-    },
+    // {
+    //   name: 'package',
+    //   icon: <BiPackage />,
+    // },
     {
       name: 'setting',
       icon: <FiSettings />,
@@ -133,26 +133,26 @@ const Sidebar = () => {
       name: 'transactions',
       icon: <BiTransferAlt />,
     },
-    {
-      name: 'business-manager',
-      icon: <MdBusiness />,
-    },
-    {
-      name: 'add-service',
-      icon: <MdAdd />,
-    },
+    // {
+    //   name: 'business-manager',
+    //   icon: <MdBusiness />,
+    // },
+    // {
+    //   name: 'add-service',
+    //   icon: <MdAdd />,
+    // },
     {
       name: 'manage-users',
       icon: <MdNoAccounts />,
     },
-    {
-      name: 'giving-permission',
-      icon: <MdPermDataSetting />,
-    },
-    {
-      name: 'currency',
-      icon: <BsCurrencyEuro />,
-    },
+    // {
+    //   name: 'giving-permission',
+    //   icon: <MdPermDataSetting />,
+    // },
+    // {
+    //   name: 'currency',
+    //   icon: <BsCurrencyEuro />,
+    // },
     {
       name: 'spending-rate',
       icon: <MdStarRate />,
@@ -189,7 +189,7 @@ const Sidebar = () => {
           <div className="mt-10 ">
 
             {/* user routes */}
-            {admin && <div>
+            {!admin && <div>
               {userMenu.map((link) => (
                 <NavLink
                   to={`/${link.name}`}

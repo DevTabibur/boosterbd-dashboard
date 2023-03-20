@@ -20,7 +20,7 @@ const useAdmin = (user) => {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    // console.log("check admin hooks inside", data.data.role);
+                    console.log("check admin hooks inside", data.data.role);
                     if (data.data?.role === "admin") {
                         setAdmin(true);
                         setAdminLoading(false);
@@ -29,7 +29,7 @@ const useAdmin = (user) => {
                     }
                 });
         }
-    }, [user, navigate]);
+    }, [user, navigate, admin]);
     return [admin, adminLoading];
 };
 

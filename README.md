@@ -37,3 +37,6 @@
 3. activeUser ee dependecy dibo.
 4. keu issa kore localStrorage theke token remove dile, page automatic login page e chole jabe.. eita inbuild kora lagbe
 5. mobile banking e payment with e onk gula option ase, payment gateway er. user j gateway te click dibe, sei gateway er number, nicher input field e dekhate hbe... top-up page e mobile banking ee ei kaj kora lagbe
+6. top-up e internet-banking e select bank kon gula hobe? segula pore update korte hbe
+7. transaction theke karor , order approve + delete korle, automatic user er phone number ee message send kore dite hbe backend theke
+8. localStorage e token er moddhe user info rakha hoise. tar moddhe theke, password ta rakha jabe na localStorage e

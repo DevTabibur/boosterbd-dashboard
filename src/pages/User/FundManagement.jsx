@@ -20,145 +20,69 @@ const FundManagement = () => {
     const [showShort, setShowShort] = useState(false);
 
 
-    // const [cash, setCash] = useState(false);
-    // const [mobileBanking, setMobileBanking] = useState(false);
-    // const [internetBanking, setInternetBanking] = useState(false);
-    // const [internationalGateway, setInternationalGateway] = useState(false);
-    // const [selectedMethod, setSelectedMethod] = useState("");
+    const [cash, setCash] = useState(false);
+    const [mobileBanking, setMobileBanking] = useState(false);
+    const [internetBanking, setInternetBanking] = useState(false);
+    const [internationalGateway, setInternationalGateway] = useState(false);
+    const [selectedMethod, setSelectedMethod] = useState("");
 
 
     // cash filtered with phone number
     const CashData = getCash.filter(obj => obj.phoneNumber === activeUser?.phoneNumber);
+    const MobileBankingData = getMobileBanking.filter(obj => obj.phoneNumber === activeUser?.phoneNumber);
+    const InternationalGatewayData = getInternationalGateway.filter(obj => obj.phoneNumber === activeUser?.phoneNumber);
+    const InternetBankingData = getInternetBanking.filter(obj => obj.phoneNumber === activeUser?.phoneNumber);
 
-    // console.log('getInternetBanking', getInternetBanking)
-    console.log('getMobileBanking', getMobileBanking)
-    // console.log('getInternationalGateway', getInternationalGateway)
+    // console.log('MobileBankingData', MobileBankingData)
+    // console.log('CashData', CashData)
+    // console.log('InternationalGatewayData', InternationalGatewayData)
+    // console.log('InternetBankingData', InternetBankingData)
 
-    // const handleCheckboxChange = (event) => {
-    //     setSelectedMethod(event.target.value);
-    //     if (event.target.value === "Cash") {
-    //         setMobileBanking(false)
-    //         setInternationalGateway(false)
-    //         setInternetBanking(false)
-    //         setCash(true)
-
-    //         const url = `http://localhost:5000/api/v1/top-up/cash`;
-    //         fetch(url, {
-    //             method: "GET",
-    //             headers: {
-    //                 'content-type': "application/json"
-    //             }
-    //         })
-    //             .then(res => res.json())
-    //             .then(data => {
-    //                 // console.log('cash top-up get', data.data)
-    //                 if (data.code === 400) {
-    //                     Swal.fire({
-    //                         title: data.status,
-    //                         text: data?.error,
-    //                         icon: "error"
-    //                     })
-    //                 }
-    //                 else {
-    //                     setCash(data?.data)
-    //                 }
-    //             })
-    //     }
-    //     else if (event.target.value === "Mobile Banking") {
-    //         setCash(false)
-    //         setMobileBanking(false)
-    //         setInternationalGateway(false)
-    //         setInternetBanking(false)
-    //         setMobileBanking(true)
-
-    //         // const url = `http://localhost:5000/api/v1/top-up/mobile-banking`;
-    //         // fetch(url, {
-    //         //     method: "GET",
-    //         //     headers: {
-    //         //         'content-type': "application/json"
-    //         //     }
-    //         // })
-    //         //     .then(res => res.json())
-    //         //     .then(data => {
-    //         //         console.log('cash top-up get', data.data)
-    //         //         if (data.code === 400) {
-    //         //             Swal.fire({
-    //         //                 title: data.status,
-    //         //                 text: data?.error,
-    //         //                 icon: "error"
-    //         //             })
-    //         //         }
-    //         //         else {
-    //         //             setMobileBanking(data?.data)
-    //         //         }
-    //         //     })
+    const handleCheckboxChange = (event) => {
+        setSelectedMethod(event.target.value);
+        console.log('selected method', event.target.value)
+        if (event.target.value === "Cash") {
+            setMobileBanking(false)
+            setInternationalGateway(false)
+            setInternetBanking(false)
+            setCash(true)
 
 
-    //     }
-    //     else if (event.target.value === "Internet Banking") {
-    //         setCash(false)
-    //         setMobileBanking(false)
-    //         setInternationalGateway(false)
-    //         setMobileBanking(false)
-    //         setInternetBanking(true)
-
-    //         // const url = `http://localhost:5000/api/v1/top-up/internet-banking`;
-    //         // fetch(url, {
-    //         //     method: "GET",
-    //         //     headers: {
-    //         //         'content-type': "application/json"
-    //         //     }
-    //         // })
-    //         //     .then(res => res.json())
-    //         //     .then(data => {
-    //         //         console.log('cash top-up get', data.data)
-    //         //         if (data.code === 400) {
-    //         //             Swal.fire({
-    //         //                 title: data.status,
-    //         //                 text: data?.error,
-    //         //                 icon: "error"
-    //         //             })
-    //         //         }
-    //         //         else {
-    //         //             setInternetBanking(data?.data)
-    //         //         }
-    //         //     })
-
-    //     }
-    //     else if (event.target.value === "International Payment Gateway") {
-    //         setCash(false)
-    //         setMobileBanking(false)
-    //         setMobileBanking(false)
-    //         setInternetBanking(false)
-    //         setInternationalGateway(true)
+        }
+        else if (event.target.value === "Mobile Banking") {
+            setCash(false)
+            setMobileBanking(false)
+            setInternationalGateway(false)
+            setInternetBanking(false)
+            setMobileBanking(true)
 
 
-    //         // const url = `http://localhost:5000/api/v1/top-up/international-payment-gateway`;
-    //         // fetch(url, {
-    //         //     method: "GET",
-    //         //     headers: {
-    //         //         'content-type': "application/json"
-    //         //     }
-    //         // })
-    //         //     .then(res => res.json())
-    //         //     .then(data => {
-    //         //         console.log('cash top-up get', data.data)
-    //         //         if (data.code === 400) {
-    //         //             Swal.fire({
-    //         //                 title: data.status,
-    //         //                 text: data?.error,
-    //         //                 icon: "error"
-    //         //             })
-    //         //         }
-    //         //         else {
-    //         //             setInternationalGateway(data?.data)
-    //         //         }
-    //         //     })
 
-    //     }
-    //     // console.log("Selected payment method:", event.target.value);
+        }
+        else if (event.target.value === "Internet Banking") {
+            setCash(false)
+            setMobileBanking(false)
+            setInternationalGateway(false)
+            setMobileBanking(false)
+            setInternetBanking(true)
 
-    // };
+
+
+        }
+        else if (event.target.value === "International Payment Gateway") {
+            setCash(false)
+            setMobileBanking(false)
+            setMobileBanking(false)
+            setInternetBanking(false)
+            setInternationalGateway(true)
+
+
+
+
+        }
+        // console.log("Selected payment method:", event.target.value);
+
+    };
 
 
 
@@ -166,7 +90,7 @@ const FundManagement = () => {
         <div className='mt-24'>
 
             <div className="flex justify-between mt-10">
-                <h2 className="text-center text-2xl font-semibold ml-6">Fund Management</h2>
+                <h2 className="text-center text-2xl font-semibold ml-6 text-gray-600">Fund Management</h2>
 
                 <div className="md:flex items-center btn-group-lmt">
                     <div className="relative inline-block text-left">
@@ -314,7 +238,7 @@ const FundManagement = () => {
 
 
 
-            {/* <div className="md:flex gap-24 mt-6 mx-20 bg-zinc-200 rounded shadow-lg p-6">
+            <div className="md:flex gap-24 mt-6 mx-20 bg-zinc-200 rounded shadow-lg p-6">
                 <h2 className="text-base font-semibold">Payment Method</h2>
                 <div>
                     <div>
@@ -374,58 +298,141 @@ const FundManagement = () => {
                         </label>
                     </div>
                 </div>
-            </div> */}
+            </div>
+
 
             {/* cash */}
-
-            {CashData.length >= 0 &&
+            {selectedMethod === "Cash" &&
                 <div className="grid md:grid-cols-1 my-0 mx-4 ">
                     <div className="overflow-x-auto">
                         <table className="table-auto w-full  mt-10 font-normal">
                             <thead className="text-white">
                                 <tr className="text-black flex md:flex-row flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
-                                    <th className="p-3 text-left text-[#717D82]">SL.</th>
-                                    <th className="p-3 text-left text-[#717D82]">Date</th>
-                                    <th className="p-3 text-left text-[#717D82]">Payment Proof</th>
-                                    <th className="p-3 text-left text-[#717D82]">Paid To</th>
+                                    <th className="p-3 text-left text-gray-600">SL.</th>
+                                    <th className="p-3 text-left text-gray-600">Date</th>
+                                    <th className="p-3 text-left text-gray-600">Payment Proof</th>
+                                    <th className="p-3 text-left text-gray-600">Paid To</th>
 
-                                    <th className="p-3 text-left text-[#717D82]">
+                                    <th className="p-3 text-left text-gray-600">
                                         Payment For
                                     </th>
-                                    <th className="p-3 text-left text-[#717D82]">
+                                    <th className="p-3 text-left text-gray-600">
                                         Amount
                                     </th>
-                                    <th className="p-3 text-left text-[#717D82]">Status</th>
+                                    <th className="p-3 text-left text-gray-600">Status</th>
+                                    <th className="p-3 text-left text-gray-600">Details</th>
                                 </tr>
                             </thead>
 
-
+                            {/* cash filtered data */}
                             {CashData.map((data, i) => {
                                 return (<tbody key={i}>
                                     <tr className="flex md:flex-row flex-no wrap sm:table-row mb-2 sm:mb-0 text-[14px]">
 
-                                        <td className="text-[#464F53]      p-3 truncate">{i + 1}</td>
-                                        <td className="text-[#464F53]      p-3 ">{data?.createdAt}</td>
-                                        {data?.cashProof ? <td className="text-[#464F53] p-3 ">
+                                        <td className="text-gray-600 p-3 truncate">{i + 1}</td>
+                                        <td className="text-gray-600 p-3 ">{data?.createdAt}</td>
+                                        {data?.cashProof ? <td className="text-gray-600 p-3 ">
                                             <img className='h-10 w-10 relative' src={`http://localhost:5000/${data?.cashProof}`} alt="imag" />
-                                        </td> : <td className="text-[#464F53] p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
+                                        </td> : <td className="text-gray-600 p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
 
-                                        <td className="text-[#464F53]      p-3 ">
+                                        <td className="text-gray-600 p-3 ">
                                             {data?.paidTo}
                                         </td>
-                                        <td className="text-[#464F53]      p-3 ">
+                                        <td className="text-gray-600 p-3 ">
                                             {data?.paymentFor}
                                         </td>
-                                        <td className="text-[#464F53]      p-3 ">
+                                        <td className="text-gray-600 p-3 ">
                                             {data?.amountToAdd}
                                         </td>
 
-                                        <td >
+                                        <td className="text-gray-600 p-3 ">
                                             {data?.status}
                                         </td>
 
                                     </tr>
                                 </tbody>)
+                            })}
+                        </table>
+                    </div>
+                </div>
+            }
+            {/* mobile banking  */}
+            {selectedMethod === "Mobile Banking" &&
+                <div className="grid md:grid-cols-1 my-0 mx-4 ">
+                    <div className="overflow-x-auto">
+                        <table className="table-auto w-full  mt-10 font-normal">
+                            <thead className="text-white">
+                                <tr className="text-black flex md:flex-row flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+                                    <th className="p-3 text-left text-gray-600">SL.</th>
+                                    <th className="p-3 text-left text-gray-600">Date</th>
+                                    <th className="p-3 text-left text-gray-600">Payment Proof</th>
+                                    <th className="p-3 text-left text-gray-600">Paid To</th>
+                                    <th className="p-3 text-left text-gray-600">
+                                        Payment For
+                                    </th>
+                                    <th className="p-3 text-left text-gray-600">
+                                        Amount
+                                    </th>
+                                    <th className="p-3 text-left text-gray-600">Details</th>
+                                </tr>
+                            </thead>
+
+                            {/* mobile banking filtered data */}
+                            {MobileBankingData.map((data, i) => {
+                                return (<tbody key={i}>
+                                    <tr className="flex md:flex-row flex-no wrap sm:table-row mb-2 sm:mb-0 text-[14px]">
+
+                                        <td className="text-gray-600 p-3 truncate">{i + 1}</td>
+                                        <td className="text-gray-600 p-3 ">{data?.createdAt}</td>
+                                        {data?.cashProof ? <td className="text-gray-600 p-3 ">
+                                            <img className='h-10 w-10 relative' src={`http://localhost:5000/${data?.cashProof}`} alt="imag" />
+                                        </td> : <td className="text-gray-600 p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
+
+                                        <td className="text-gray-600 p-3 ">
+                                            {data?.paidTo}
+                                        </td>
+                                        <td className="text-gray-600 p-3 ">
+                                            {data?.paymentFor}
+                                        </td>
+                                        <td className="text-gray-600 p-3 ">
+                                            {data?.amountToAdd}
+                                        </td>
+
+                                        <td className="text-gray-600 p-3 ">
+                                            <button style={{ backgroundColor: currentColor }}>DETAILS</button>
+                                        </td>
+
+                                    </tr>
+                                </tbody>)
+                            })}
+                        </table>
+                    </div>
+                </div>
+            }
+            {/* internet banking  */}
+            {selectedMethod === "Internet Banking" &&
+                <div className="grid md:grid-cols-1 my-0 mx-4 ">
+                    <div className="overflow-x-auto">
+                        <table className="table-auto w-full  mt-10 font-normal">
+                            <thead className="text-white">
+                                <tr className="text-black flex md:flex-row flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+                                    <th className="p-3 text-left text-gray-600">SL.</th>
+                                    <th className="p-3 text-left text-gray-600">Date</th>
+                                    <th className="p-3 text-left text-gray-600">Payment Proof</th>
+                                    <th className="p-3 text-left text-gray-600">Bank</th>
+                                    <th className="p-3 text-left text-gray-600">
+                                        Customer Account
+                                    </th>
+                                    <th className="p-3 text-left text-gray-600">
+                                        Amount
+                                    </th>
+                                    <th className="p-3 text-left text-gray-600">Details</th>
+                                </tr>
+                            </thead>
+
+                            {/* mobile banking filtered data */}
+                            {InternetBankingData.map((data, i) => {
+                                console.log('internet', data)
                             })}
                         </table>
                     </div>
