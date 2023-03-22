@@ -87,6 +87,10 @@ const Sidebar = () => {
       icon: <RiFundsBoxFill />,
     },
     {
+      name: 'create-ad-account',
+      icon: <MdCreate />,
+    },
+    {
       name: 'ad-account-view',
       icon: <MdAccountBox />,
     },
@@ -121,10 +125,7 @@ const Sidebar = () => {
       name: 'dashboard',
       icon: <FiShoppingBag />,
     },
-    {
-      name: 'create-ad-account',
-      icon: <MdCreate />,
-    },
+
     {
       name: 'ad-account-requests-view',
       icon: <HiViewGrid />,

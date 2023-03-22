@@ -40,4 +40,15 @@
 6. top-up e internet-banking e select bank kon gula hobe? segula pore update korte hbe
 7. transaction theke karor , order approve + delete korle, automatic user er phone number ee message send kore dite hbe backend theke
 8. localStorage e token er moddhe user info rakha hoise. tar moddhe theke, password ta rakha jabe na localStorage e
-9. transaction page e payment method gulor modal ee , ekta theke details button theke onno details btn e gele, agar details btn er info , kisukkn dekhai....eita hosse page refresh hossena tai...
+9. transaction page e payment method gulor modal ee , details button theke onno details btn e gele, agar details btn er info , kisukkn dekhai....eita hosse button er id and modal er id dame houyai
+10. admin jkn dashborad route theke verification route e jai, tkhn page reload disse, jar jonne eye catching ta valo lagse na...chokhe dhanda lagar moto lagse...eita thik korte hbe..dashboard theke onno jekono route ee gele 1st render ee page reload dei and page jhaki martese..
+
+
+# SERVER
+1. server e generateToken ee password rakha jabe na. just id rakhlei kaj hosse ki seta kheyal kore, just id rakhai perfect hbe. baki info na rakhai better
+
+
+
+#  Task 22/3/23
+1. create-ad-account er full kaj kora.
+2. manage users er full kaj kora

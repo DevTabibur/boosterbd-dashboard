@@ -1,15 +1,23 @@
 import React, { useState } from 'react'
+import { useStateContext } from '../../contexts/ContextProvider';
+import useActiveUser from '../../Hooks/useActiveUser';
+import useAdAccountRequest from '../../Hooks/useAdAccountRequest';
 
 const AdAccountView = () => {
+    const [adAccounts] = useAdAccountRequest()
+    const { currentColor } = useStateContext()
+    const [activeUser, isLoading] = useActiveUser()
     const [showBulk, setShowBulk] = useState(false);
     const [showShort, setShowShort] = useState(false);
+
+    const filteredAccountRequest = adAccounts.filter(obj => obj.phoneNumber === activeUser?.phoneNumber)
+    // console.log('filteredAccountRequest', filteredAccountRequest)
+
     return (
         <div className='container mx-auto px-4 mt-24'>
 
             <div className="flex justify-between mt-10">
-                <div className="w-[19px] h-[15px]">
-                    <input type="checkbox" className="w-full h-full" />
-                </div>
+                <h2 style={{ color: currentColor }} className="text-2xl font-semibold">Ad Account Request Status</h2>
 
                 <div className="md:flex items-center btn-group-lmt">
                     <div className="relative inline-block text-left">
@@ -156,132 +164,50 @@ const AdAccountView = () => {
             </div>
 
 
-            <table className="w-full  bg-gray-200 px-4 rounded-lg  mt-[26px]">
-                <thead className="text-white px-4">
-                    <tr className="text-black  sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 font-medium">
-                        <th className=" text-left text-[#717D82]">
-                            <div className="w-[15px] h-[15px]">
-                                <input type="checkbox" className="w-full h-full" />
-                            </div>
-                        </th>
-                        <th className="p-3 text-left text-[#717D82]">Name</th>
-                        <th className="p-3 text-left text-[#717D82]">
-                            Ad Account Name
-                        </th>
-                        <th className="p-3 text-left text-[#717D82]">Topics</th>
-                        <th className="p-3 text-left text-[#717D82]">Page URL</th>
-                        <th className="p-3 text-left text-[#717D82]">Page ID</th>
+            <div className='overflow-x-auto'>
+                <table className="w-full  bg-gray-200 px-4 rounded-lg  mt-[26px]">
+                    <thead className="text-white px-4">
+                        <tr className="text-black  sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 font-medium">
 
-                        <th className="p-3 text-left text-[#717D82]">Initial Deposit</th>
-                        <th className="p-3 text-left text-[#717D82]">Status</th>
-                    </tr>
-                </thead>
-                <tbody className="flex-1 sm:flex-none">
-                    <TableRow />
-                    <TableRow />
-                    <TableRow />
-                </tbody>
-            </table>
+                            <th className="p-3 text-left text-[#717D82]">SL</th>
+                            <th className="p-3 text-left text-[#717D82]">
+                                Ad Account Name
+                            </th>
+                            <th className="p-3 text-left text-[#717D82]">
+                                Ad Account Number
+                            </th>
+                            <th className="p-3 text-left text-[#717D82]">Number</th>
+                            <th className="p-3 text-left text-[#717D82]">Page Link</th>
+                            <th className="p-3 text-left text-[#717D82]">Page ID</th>
+                            <th className="p-3 text-left text-[#717D82]">Company Website</th>
+
+                            <th className="p-3 text-left text-[#717D82]">Initial Deposit</th>
+                            <th className="p-3 text-left text-[#717D82]">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody className="flex-1 sm:flex-none">
+                        {filteredAccountRequest.map((data, i) => (
+                            <tr key={i} className=" sm:table-row mb-2 sm:mb-0 text-[14px]">
+
+                                <td className="text-[#464F53]   font-normal   p-3 truncate">{i + 1}</td>
+                                {data?.addAccountName ? <td className="text-[#464F53]   font-normal   p-3 ">{data?.addAccountName}</td> : <td className="text-[#464F53]   font-normal   p-3 ">Admin will Update it</td>}
+                                {data?.addAccountNumber ? <td className="text-[#464F53]   font-normal   p-3 ">{data?.addAccountNumber}</td> : <td className="text-[#464F53]   font-normal   p-3 ">Admin will Update it</td>}
+                                <td className="text-[#464F53]   font-normal   p-3 ">{data?.phoneNumber}</td>
+                                <td className="text-[#464F53]   font-normal   p-3 ">{data?.pageLink}</td>
+                                <td className="text-[#464F53]   font-normal   p-3 ">{data?.pageID}</td>
+                                <td className="text-[#464F53]   font-normal   p-3 ">{data?.companyWebsite}</td>
+                                <td className="text-[#464F53]   font-normal   p-3 ">Initial Deposit</td>
+                                <td className="text-center">
+                                    {data?.status}
+                                </td>
+
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }
 
 export default AdAccountView;
-
-
-const TableRow = ({ data }) => {
-    const [showReject, setShowReject] = useState(false);
-    return (
-        <tr className=" sm:table-row mb-2 sm:mb-0 text-[14px]">
-            <td className="text-[#464F53] text-center">
-                <div className="w-[15px] h-[15px]">
-                    <input type="checkbox" className="w-full h-full" />
-                </div>
-            </td>
-            <td className="text-[#464F53]   font-normal   p-3 truncate">Ibrahim</td>
-            <td className="text-[#464F53]   font-normal   p-3 ">Nell Akash</td>
-
-            <td className="text-[#464F53]   font-normal   p-3 ">343dgftg3</td>
-            <td className="text-[#464F53]   font-normal   p-3 ">$5456</td>
-            <td className="text-[#464F53]   font-normal   p-3 ">$5456</td>
-            <td className="text-[#464F53]   font-normal   p-3 ">Balance</td>
-            <td className="text-center">
-                <button className="bg-[#C3BE47] font-semibold text-black text-[12px] rounded-lg p-2">
-                    Pending
-                </button>
-            </td>
-            {/* <td>
-                <div className="flex ">
-                    <div className="relative inline-block text-left ">
-                        <div>
-                            <button
-                                onClick={() => {
-                                    showReject ? setShowReject(false) : setShowReject(true);
-                                }}
-                                className="bg-[#C34747] rounded-tl-md rounded-bl-lg font-semibold text-black text-[12px]  py-2 px-3 flex"
-                            >
-                                Reject
-                                <svg
-                                    className="-mr-1 ml-2 h-5 w-5"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-
-                        {showReject && (
-                            <div
-                                className="absolute z-50 right-0  mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border"
-                                role="menu"
-                                aria-orientation="vertical"
-                                aria-labelledby="menu-button"
-                                tabIndex={-1}
-                            >
-                                <div className="py-1" role="none">
-                                    <a
-                                        href="#"
-                                        className="text-gray-700 block hover:bg-slate-200 px-4 py-2 text-sm"
-                                        role="menuitem"
-                                        tabIndex={-1}
-                                        id="menu-item-0"
-                                    >
-                                        Amount not Meched
-                                    </a>
-                                    <a
-                                        href="#"
-                                        className="text-gray-700 hover:bg-slate-200 block px-4 py-2 text-sm"
-                                        role="menuitem"
-                                        tabIndex={-1}
-                                        id="menu-item-1"
-                                    >
-                                        Insufficial Balance
-                                    </a>
-                                    <a
-                                        href="#"
-                                        className="text-gray-700 hover:bg-slate-200 block px-4 py-2 text-sm"
-                                        role="menuitem"
-                                        tabIndex={-1}
-                                        id="menu-item-1"
-                                    >
-                                        Wrong Information
-                                    </a>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                    <button className="bg-[#26C536] rounded-tr-md border-l rounded-br-lg font-semibold text-black text-[12px]  p-2">
-                        Approve
-                    </button>
-                </div>
-            </td> */}
-        </tr>
-    );
-};

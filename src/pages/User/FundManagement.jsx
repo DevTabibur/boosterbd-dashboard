@@ -34,7 +34,6 @@ const FundManagement = () => {
     const InternationalGatewayData = getInternationalGateway.filter(obj => obj.phoneNumber === activeUser?.phoneNumber);
     const InternetBankingData = getInternetBanking.filter(obj => obj.phoneNumber === activeUser?.phoneNumber);
 
-    console.log('InternationalGatewayData', InternationalGatewayData)
     // console.log('CashData', CashData)
     // console.log('InternationalGatewayData', InternationalGatewayData)
     // console.log('InternetBankingData', InternetBankingData)

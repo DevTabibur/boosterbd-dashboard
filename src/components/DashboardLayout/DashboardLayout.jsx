@@ -8,7 +8,7 @@ import CustomRouter from '../Router/CustomRouter'
 import Sidebar from '../Sidebar'
 import ThemeSettings from '../ThemeSettings'
 
-const Dashboard = ({ children }) => {
+const DashboardLayout = ({ children }) => {
     // console.log('children', children)
     const {
         setCurrentColor,
@@ -32,7 +32,7 @@ const Dashboard = ({ children }) => {
         <>
             <div className={currentMode === 'Dark' ? 'dark' : ''}>
 
-                <div className="flex relative dark:bg-main-dark-bg">
+                <div className="flex relative dark:bg-main-dark-bg ">
                     <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
                         <TooltipComponent content="Settings" position="Top">
                             <button
@@ -81,4 +81,4 @@ const Dashboard = ({ children }) => {
     )
 }
 
-export default Dashboard
+export default DashboardLayout

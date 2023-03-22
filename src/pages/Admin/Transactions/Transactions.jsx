@@ -18,7 +18,6 @@ const Transactions = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState('')
 
-    console.log('internationalGateway', internationalGateway)
 
 
     const handleCheckboxChange = (event) => {
