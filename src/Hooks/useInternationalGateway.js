@@ -4,7 +4,7 @@ const useInternationalGateway = () => {
 
     const [getInternationalGateway, setGetInternationalGateway] = useState([])
     useEffect(() => {
-        const url = `http://localhost:5000/api/v1/top-up/international-payment-gateway`;
+        const url = `https://boosterbd-server.onrender.com/api/v1/top-up/international-payment-gateway`;
         fetch(url, {
             method: "GET",
             headers: {

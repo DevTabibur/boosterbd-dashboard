@@ -318,7 +318,7 @@ const FundManagement = () => {
                                         <td className="text-gray-600 p-3 truncate">{i + 1}</td>
                                         <td className="text-gray-600 p-3 ">{data?.createdAt}</td>
                                         {data?.cashProof ? <td className="text-gray-600 p-3 ">
-                                            <img className='h-10 w-10 relative' src={`http://localhost:5000/${data?.cashProof}`} alt="imag" />
+                                            <img className='h-10 w-10 relative' src={`https://boosterbd-server.onrender.com/${data?.cashProof}`} alt="imag" />
                                         </td> : <td className="text-gray-600 p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
 
                                         <td className="text-gray-600 p-3 ">
@@ -377,7 +377,7 @@ const FundManagement = () => {
                                         <td className="text-gray-600 p-3 truncate">{i + 1}</td>
                                         <td className="text-gray-600 p-3 ">{data?.createdAt}</td>
                                         {data?.transactionScreenShot ? <td className="text-gray-600 p-3 ">
-                                            <img className='h-10 w-10 relative' src={`http://localhost:5000/${data?.transactionScreenShot}`} alt="transactionScreenShot" />
+                                            <img className='h-10 w-10 relative' src={`https://boosterbd-server.onrender.com/${data?.transactionScreenShot}`} alt="transactionScreenShot" />
                                         </td> : <td className="text-gray-600 p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
 
                                         <td className="text-gray-600 p-3 ">
@@ -444,7 +444,7 @@ const FundManagement = () => {
                                         <td className="text-gray-600 p-3 truncate">{i + 1}</td>
                                         <td className="text-gray-600 p-3 ">{data?.createdAt}</td>
                                         {data?.internetBankingProof ? <td className="text-gray-600 p-3 ">
-                                            <img className='h-10 w-10 relative' src={`http://localhost:5000/${data?.internetBankingProof}`} alt="internetBankingProof" />
+                                            <img className='h-10 w-10 relative' src={`https://boosterbd-server.onrender.com/${data?.internetBankingProof}`} alt="internetBankingProof" />
                                         </td> : <td className="text-gray-600 p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
 
                                         <td className="text-gray-600 p-3 ">
@@ -517,7 +517,7 @@ const FundManagement = () => {
                                         <td className="text-gray-600 p-3 truncate">{i + 1}</td>
                                         <td className="text-gray-600 p-3 ">{data?.createdAt}</td>
                                         {data?.internationalGatewayProof ? <td className="text-gray-600 p-3 ">
-                                            <img className='h-10 w-10 relative' src={`http://localhost:5000/${data?.internationalGatewayProof}`} alt="internationalGatewayProof" />
+                                            <img className='h-10 w-10 relative' src={`https://boosterbd-server.onrender.com/${data?.internationalGatewayProof}`} alt="internationalGatewayProof" />
                                         </td> : <td className="text-gray-600 p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
 
                                         <td className="text-gray-600 p-3 ">

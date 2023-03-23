@@ -29,7 +29,7 @@ const AdAccountRequestsView = () => {
 
 
     const handleApproved = (id) => {
-        const url = `http://localhost:5000/api/v1/ad-account/${id}`;
+        const url = `https://boosterbd-server.onrender.com/api/v1/ad-account/${id}`;
         fetch(url, {
             method: "PUT",
             headers: {
@@ -78,7 +78,7 @@ const AdAccountRequestsView = () => {
     const handleCanceled = (id) => {
         const confirmation = window.confirm("Are you want to cancel this?")
         if (confirmation) {
-            const url = `http://localhost:5000/api/v1/ad-account/${id}`;
+            const url = `https://boosterbd-server.onrender.com/api/v1/ad-account/${id}`;
             fetch(url, {
                 method: "PUT",
                 headers: {
@@ -129,7 +129,7 @@ const AdAccountRequestsView = () => {
     const handleDelete = (id) => {
         const confirmation = window.confirm("Are you want to Delete?")
         if (confirmation) {
-            const url = `http://localhost:5000/api/v1/ad-account/${id}`;
+            const url = `https://boosterbd-server.onrender.com/api/v1/ad-account/${id}`;
             fetch(url, {
                 method: "DELETE",
                 headers: {
@@ -281,7 +281,7 @@ const Modal = ({ modalData, currentColor }) => {
             addAccountNumber: data?.addAccountNumber,
         }
         // console.log('body', body)
-        const url = `http://localhost:5000/api/v1/ad-account/${modalData?._id}/admin-given-info`;
+        const url = `https://boosterbd-server.onrender.com/api/v1/ad-account/${modalData?._id}/admin-given-info`;
         fetch(url, {
             method: "PUT",
             headers: {

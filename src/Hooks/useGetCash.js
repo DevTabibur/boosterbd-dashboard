@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 const useGetCash = () => {
     const [getCash, setGetCash] = useState([])
     useEffect(() => {
-        const url = `http://localhost:5000/api/v1/top-up/cash`;
+        const url = `https://boosterbd-server.onrender.com/api/v1/top-up/cash`;
         fetch(url, {
             method: "GET",
             headers: {

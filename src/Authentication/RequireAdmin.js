@@ -9,7 +9,7 @@ const RequireAdmin = () => {
     const location = useLocation();
     const [activeUser, isLoading] = useActiveUser();
     const [admin, adminLoading] = useAdmin(activeUser);
-    // console.log('requireAdmin', activeUser, admin)
+    console.log('requireAdmin', activeUser, admin)
 
     // do not delete adminLoading, then it'll return admin falsy value
     if (adminLoading) {

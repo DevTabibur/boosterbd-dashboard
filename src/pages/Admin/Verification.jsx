@@ -25,7 +25,7 @@ const Verification = () => {
         // console.log('handleMakeVerified', id)
         const confirmation = window.confirm("Do you want to make him verified?")
         if (confirmation) {
-            const url = `http://localhost:5000/api/v1/user/register2/${id}`;
+            const url = `https://boosterbd-server.onrender.com/api/v1/user/register2/${id}`;
             fetch(url, {
                 method: "PUT",
                 headers: {
@@ -224,7 +224,7 @@ const Verification = () => {
                                         <td className="text-[#464F53]      p-3 truncate">{i + 1}</td>
                                         <td className="text-[#464F53]      p-3 ">{user?.name}</td>
                                         {user?.imageURL ? <td className="text-[#464F53] p-3 ">
-                                            <img className='h-10 w-10 relative' src={`http://localhost:5000/${user?.imageURL}`} alt="imag" />
+                                            <img className='h-10 w-10 relative' src={`https://boosterbd-server.onrender.com/${user?.imageURL}`} alt="imag" />
                                         </td> : <td className="text-[#464F53] p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
 
                                         <td className="text-[#464F53]      p-3 ">
@@ -312,15 +312,15 @@ const Modal = ({ user, handleMakeVerified }) => {
                         <div className="relative flex-auto p-4" data-te-modal-body-ref>
                             {/* Modal body text goes here. */}
                             <p>Profile Completed: {user?.completionRate} %</p>
-                            <p className='flex justify-between'>Image: <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${user?.imageURL}`} alt="imag" /></p>
+                            <p className='flex justify-between'>Image: <img className='h-14 w-14 mb-2 zoom_img' src={`https://boosterbd-server.onrender.com/${user?.imageURL}`} alt="imag" /></p>
                             <hr />
                             <p>Name: {user?.name}</p>
                             <p>Email: {user?.email}</p>
                             <p className='mb-2'>Address: {user?.address}</p>
                             <hr />
-                            <p className='flex justify-between'>NID : {user?.nid}  {user?.nidFile && <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${user?.nidFile}`} alt="imag" />}</p>
-                            <p className='flex justify-between'>BIN : {user?.bin}  {user?.binFile && <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${user?.binFile}`} alt="imag" />}</p>
-                            <p className='flex justify-between mb-2'>TIN : {user?.tin}  {user?.tinFile && <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${user?.tinFile}`} alt="imag" />}</p>
+                            <p className='flex justify-between'>NID : {user?.nid}  {user?.nidFile && <img className='h-14 w-14 mb-2 zoom_img' src={`https://boosterbd-server.onrender.com/${user?.nidFile}`} alt="imag" />}</p>
+                            <p className='flex justify-between'>BIN : {user?.bin}  {user?.binFile && <img className='h-14 w-14 mb-2 zoom_img' src={`https://boosterbd-server.onrender.com/${user?.binFile}`} alt="imag" />}</p>
+                            <p className='flex justify-between mb-2'>TIN : {user?.tin}  {user?.tinFile && <img className='h-14 w-14 mb-2 zoom_img' src={`https://boosterbd-server.onrender.com/${user?.tinFile}`} alt="imag" />}</p>
                             <hr />
                             <p>Github: {user?.githubProfile ? user?.githubProfile : "Didn't update yet"}</p>
                             <p>Company Website: {user?.companyWebsite ? user?.companyWebsite : "Didn't update yet"}</p>

@@ -3,16 +3,18 @@
 import { useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import Swal from "sweetalert2";
+import { useStateContext } from "../../contexts/ContextProvider";
 import useActiveUser from "../../Hooks/useActiveUser";
 import useSingleUserByID from "../../Hooks/useSingleUserByID";
 import Progress from "../Progress/Progress";
 
 const Profile = () => {
+    const { currentColor } = useStateContext()
     const [completionPercentage, setCompletionPercentage] = useState(0);
     const [activeUser, isLoading] = useActiveUser();
     const { email, _id } = activeUser;
     const [singleUser] = useSingleUserByID(activeUser?._id);
-    console.log("singleUser", singleUser);
+    // console.log("singleUser", singleUser);
     const {
         register,
         handleSubmit,
@@ -187,7 +189,7 @@ const Profile = () => {
                 } else {
                     // console.log("everything is perfect");
                     // everything is perfect
-                    const url = `http://localhost:5000/api/v1/user/register/${_id}`;
+                    const url = `https://boosterbd-server.onrender.com/api/v1/user/register/${_id}`;
                     fetch(url, {
                         method: "PUT",
                         headers: {
@@ -233,14 +235,14 @@ const Profile = () => {
 
     return (
         <>
-            <section className="main-right   min-h-screen bg-[#E6E6E6] ">
+            <section className="main-right   min-h-screen bg-[#d9edff] ">
                 <div className="pt-[75px] md:pl-[50px] pl-5 md:flex items-center">
                     <div className="w-[281.21px] h-[281.21px] rounded-full bg-white overflow-hidden">
                         {singleUser?.imageURL ? (
                             <img
                                 width={280}
                                 height={280}
-                                src={`http://localhost:5000/${singleUser?.imageURL}`}
+                                src={`https://boosterbd-server.onrender.com/${singleUser?.imageURL}`}
                                 alt=""
                             />
                         ) : (
@@ -670,11 +672,12 @@ const Profile = () => {
                         </div>
 
                         <div className="col-span-12 flex justify-end items-center mt-5">
-                            <button className="bg-[#465EED] py-[10px] px-[50px] rounded-lg text-[16px] text-white">
+                            {/* <button className="bg-[#465EED] py-[10px] px-[50px] rounded-lg text-[16px] text-white">
                                 EDIT
-                            </button>
+                            </button> */}
                             <input
-                                className="bg-[#47C363] ml-10 py-[10px] px-[50px] rounded-lg text-[16px] text-white"
+                                style={{ backgroundColor: currentColor }}
+                                className=" ml-10 py-[10px] px-[50px] rounded-lg text-[16px] text-white cursor-pointer"
                                 type="submit"
                                 value="SAVE"
                             />

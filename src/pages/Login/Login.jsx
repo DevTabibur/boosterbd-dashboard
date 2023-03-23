@@ -42,7 +42,7 @@ const Login = () => {
         }
         else {
             setLoginLoading(true);
-            const url = `http://localhost:5000/api/v1/user/login`;
+            const url = `https://boosterbd-server.onrender.com/api/v1/user/login`;
             fetch(url, {
                 method: "POST",
                 headers: {

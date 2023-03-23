@@ -7,7 +7,7 @@ const useCheckVerify = (id) => {
     useEffect(() => {
         if (id !== undefined && id !== null) {
             setVerifyLoading(true)
-            const url = `http://localhost:5000/api/v1/user/register/${id}`;
+            const url = `https://boosterbd-server.onrender.com/api/v1/user/register/${id}`;
             fetch(url, {
                 method: "GET",
                 headers: {

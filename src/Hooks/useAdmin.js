@@ -10,7 +10,7 @@ const useAdmin = (user) => {
     useEffect(() => {
         const id = user?._id;
         if (id !==undefined) {
-            const url = `http://localhost:5000/api/v1/user/register/admin/${id}`;
+            const url = `https://boosterbd-server.onrender.com/api/v1/user/register/admin/${id}`;
             fetch(url, {
                 method: "GET",
                 headers: {
@@ -20,8 +20,8 @@ const useAdmin = (user) => {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log("check admin hooks inside", data.data.role);
-                    if (data.data?.role === "admin") {
+                    // console.log("check admin hooks inside", data.data.role);
+                    if (data.data?.role === "super-admin" || data.data?.role === "co-admin") {
                         setAdmin(true);
                         setAdminLoading(false);
                     } else {

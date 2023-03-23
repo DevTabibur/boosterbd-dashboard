@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 const useGetMobileBanking = () => {
     const [getMobileBanking, setGetMobileBanking] = useState([])
     useEffect(() => {
-        const url = `http://localhost:5000/api/v1/top-up/mobile-banking`;
+        const url = `https://boosterbd-server.onrender.com/api/v1/top-up/mobile-banking`;
         fetch(url, {
             method: "GET",
             headers: {

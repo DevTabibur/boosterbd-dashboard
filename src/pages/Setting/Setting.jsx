@@ -2,8 +2,10 @@ import React from 'react'
 import ChangePassword from '../../components/ChangePassword'
 import Permission from '../../components/Permission/Permmission'
 import Profile from '../../components/Profile/Profile'
+import { useStateContext } from '../../contexts/ContextProvider'
 
 const Setting = () => {
+    const { currentColor } = useStateContext()
     return (
         <>
             <div className='grid md:grid-cols-1 gap-4 mt-24'>
@@ -14,7 +16,7 @@ const Setting = () => {
                     <li role="presentation">
                         <a
                             href="#tabs-home"
-                            className="my-2 font-bold text-xl block border-x-0 border-t-0 border-b-2 border-transparent px-7 pt-4 pb-3.5 uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-primary data-[te-nav-active]:text-primary dark:text-neutral-400 dark:hover:bg-transparent dark:data-[te-nav-active]:border-primary-400 dark:data-[te-nav-active]:text-primary-400"
+                            className="my-2 font-bold text-xl block border-x-0 border-t-0 border-transparent px-7 pt-4 pb-3.5 uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-primary data-[te-nav-active]:text-primary dark:text-neutral-400 dark:hover:bg-transparent dark:data-[te-nav-active]:border-primary-400 dark:data-[te-nav-active]:text-primary-400"
                             data-te-toggle="pill"
                             data-te-target="#tabs-home"
                             data-te-nav-active
@@ -28,7 +30,7 @@ const Setting = () => {
                     <li role="presentation">
                         <a
                             href="#tabs-messages"
-                            className="my-2 block border-x-0 border-t-0 border-b-2 border-transparent px-7 pt-4 pb-3.5  font-bold text-xl uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-primary data-[te-nav-active]:text-primary dark:text-neutral-400 dark:hover:bg-transparent dark:data-[te-nav-active]:border-primary-400 dark:data-[te-nav-active]:text-primary-400"
+                            className="my-2 block border-x-0 border-t-0 border-transparent px-7 pt-4 pb-3.5  font-bold text-xl uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-primary data-[te-nav-active]:text-primary dark:text-neutral-400 dark:hover:bg-transparent dark:data-[te-nav-active]:border-primary-400 dark:data-[te-nav-active]:text-primary-400"
                             data-te-toggle="pill"
                             data-te-target="#tabs-messages"
                             role="tab"
@@ -37,10 +39,10 @@ const Setting = () => {
                         >Change Password</a
                         >
                     </li>
-                    <li role="presentation">
+                    {/* <li role="presentation">
                         <a
                             href="#tabs-permission"
-                            className="my-2 block border-x-0 border-t-0 border-b-2 border-transparent px-7 pt-4 pb-3.5  font-bold text-xl uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-primary data-[te-nav-active]:text-primary dark:text-neutral-400 dark:hover:bg-transparent dark:data-[te-nav-active]:border-primary-400 dark:data-[te-nav-active]:text-primary-400"
+                            className="my-2 block border-x-0 border-t-0 border-transparent px-7 pt-4 pb-3.5  font-bold text-xl uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-primary data-[te-nav-active]:text-primary dark:text-neutral-400 dark:hover:bg-transparent dark:data-[te-nav-active]:border-primary-400 dark:data-[te-nav-active]:text-primary-400"
                             data-te-toggle="pill"
                             data-te-target="#tabs-permission"
                             role="tab"
@@ -48,7 +50,7 @@ const Setting = () => {
                             aria-selected="false"
                         >Permission</a
                         >
-                    </li>
+                    </li> */}
 
                 </ul>
                 <div className="mb-6">
@@ -68,13 +70,13 @@ const Setting = () => {
                         aria-labelledby="tabs-profile-tab">
                         <ChangePassword />
                     </div>
-                    <div
+                    {/* <div
                         className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
                         id="tabs-permission"
                         role="tabpanel"
                         aria-labelledby="tabs-permission">
                         <Permission />
-                    </div>
+                    </div> */}
 
                 </div>
             </div>

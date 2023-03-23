@@ -19,7 +19,7 @@ const RequireUser = () => {
             const decoded = jwt_decode(getToken);
             const id = decoded.id;
             // const response = await fetch(url)
-            const url = `http://localhost:5000/api/v1/user/register/${id}`;
+            const url = `https://boosterbd-server.onrender.com/api/v1/user/register/${id}`;
             fetch(url, {
                 method: "GET",
                 headers: {

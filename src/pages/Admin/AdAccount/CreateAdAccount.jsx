@@ -25,7 +25,7 @@ const CreateAdAccount = () => {
             phoneNumber: activeUser?.phoneNumber
         }
         // console.log('body', body)
-        const url = `http://localhost:5000/api/v1/ad-account/`;
+        const url = `https://boosterbd-server.onrender.com/api/v1/ad-account/`;
         fetch(url, {
             method: "POST",
             headers: {

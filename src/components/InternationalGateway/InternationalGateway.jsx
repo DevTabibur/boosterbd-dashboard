@@ -69,7 +69,7 @@ const InternationalGateway = () => {
                 } else {
                     // console.log("everything is perfect");
                     // everything is perfect
-                    const url = `http://localhost:5000/api/v1/top-up/international-payment-gateway`;
+                    const url = `https://boosterbd-server.onrender.com/api/v1/top-up/international-payment-gateway`;
                     fetch(url, {
                         method: "POST",
                         headers: {

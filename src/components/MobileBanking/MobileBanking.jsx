@@ -76,7 +76,7 @@ const MobileBanking = () => {
                 } else {
                     // console.log("everything is perfect");
                     // everything is perfect
-                    const url = `http://localhost:5000/api/v1/top-up/mobile-banking`;
+                    const url = `https://boosterbd-server.onrender.com/api/v1/top-up/mobile-banking`;
                     fetch(url, {
                         method: "POST",
                         headers: {

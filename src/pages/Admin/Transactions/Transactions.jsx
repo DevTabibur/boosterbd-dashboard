@@ -28,7 +28,7 @@ const Transactions = () => {
             setInternetBanking(false)
             setCash(true)
 
-            const url = `http://localhost:5000/api/v1/top-up/cash`;
+            const url = `https://boosterbd-server.onrender.com/api/v1/top-up/cash`;
             fetch(url, {
                 method: "GET",
                 headers: {
@@ -57,7 +57,7 @@ const Transactions = () => {
             setInternetBanking(false)
             setMobileBanking(true)
 
-            const url = `http://localhost:5000/api/v1/top-up/mobile-banking`;
+            const url = `https://boosterbd-server.onrender.com/api/v1/top-up/mobile-banking`;
             fetch(url, {
                 method: "GET",
                 headers: {
@@ -88,7 +88,7 @@ const Transactions = () => {
             setMobileBanking(false)
             setInternetBanking(true)
 
-            const url = `http://localhost:5000/api/v1/top-up/internet-banking`;
+            const url = `https://boosterbd-server.onrender.com/api/v1/top-up/internet-banking`;
             fetch(url, {
                 method: "GET",
                 headers: {
@@ -119,7 +119,7 @@ const Transactions = () => {
             setInternationalGateway(true)
 
 
-            const url = `http://localhost:5000/api/v1/top-up/international-payment-gateway`;
+            const url = `https://boosterbd-server.onrender.com/api/v1/top-up/international-payment-gateway`;
             fetch(url, {
                 method: "GET",
                 headers: {
@@ -165,7 +165,7 @@ const Transactions = () => {
         if (route === "cash") {
             const confirmation = window.confirm("Are you want to Approved?")
             if (confirmation) {
-                const url = `http://localhost:5000/api/v1/top-up/cash/${id}`;
+                const url = `https://boosterbd-server.onrender.com/api/v1/top-up/cash/${id}`;
                 fetch(url, {
                     method: "PUT",
                     headers: {
@@ -207,7 +207,7 @@ const Transactions = () => {
         else if (route === "mobile-banking") {
             const confirmation = window.confirm("Are you want to Approved?")
             if (confirmation) {
-                const url = `http://localhost:5000/api/v1/top-up/mobile-banking/${id}`;
+                const url = `https://boosterbd-server.onrender.com/api/v1/top-up/mobile-banking/${id}`;
                 fetch(url, {
                     method: "PUT",
                     headers: {
@@ -248,7 +248,7 @@ const Transactions = () => {
         else if (route === "internet-banking") {
             const confirmation = window.confirm("Are you want to Approved?")
             if (confirmation) {
-                const url = `http://localhost:5000/api/v1/top-up/internet-banking/${id}`;
+                const url = `https://boosterbd-server.onrender.com/api/v1/top-up/internet-banking/${id}`;
                 fetch(url, {
                     method: "PUT",
                     headers: {
@@ -291,7 +291,7 @@ const Transactions = () => {
         else if (route === "international-payment-gateway") {
             const confirmation = window.confirm("Are you want to Approved?")
             if (confirmation) {
-                const url = `http://localhost:5000/api/v1/top-up/international-payment-gateway/${id}`;
+                const url = `https://boosterbd-server.onrender.com/api/v1/top-up/international-payment-gateway/${id}`;
                 fetch(url, {
                     method: "PUT",
                     headers: {
@@ -341,7 +341,7 @@ const Transactions = () => {
         if (route === "cash") {
             const confirmation = window.confirm("Are you want to canceled?")
             if (confirmation) {
-                const url = `http://localhost:5000/api/v1/top-up/cash/${id}`;
+                const url = `https://boosterbd-server.onrender.com/api/v1/top-up/cash/${id}`;
                 fetch(url, {
                     method: "PUT",
                     headers: {
@@ -381,7 +381,7 @@ const Transactions = () => {
         else if (route === "mobile-banking") {
             const confirmation = window.confirm("Are you want to Approved?")
             if (confirmation) {
-                const url = `http://localhost:5000/api/v1/top-up/mobile-banking/${id}`;
+                const url = `https://boosterbd-server.onrender.com/api/v1/top-up/mobile-banking/${id}`;
                 fetch(url, {
                     method: "PUT",
                     headers: {
@@ -423,7 +423,7 @@ const Transactions = () => {
         else if (route === "internet-banking") {
             const confirmation = window.confirm("Are you want to Approved?")
             if (confirmation) {
-                const url = `http://localhost:5000/api/v1/top-up/internet-banking/${id}`;
+                const url = `https://boosterbd-server.onrender.com/api/v1/top-up/internet-banking/${id}`;
                 fetch(url, {
                     method: "PUT",
                     headers: {
@@ -464,7 +464,7 @@ const Transactions = () => {
         else if (route === "international-payment-gateway") {
             const confirmation = window.confirm("Are you want to Approved?")
             if (confirmation) {
-                const url = `http://localhost:5000/api/v1/top-up/international-payment-gateway/${id}`;
+                const url = `https://boosterbd-server.onrender.com/api/v1/top-up/international-payment-gateway/${id}`;
                 fetch(url, {
                     method: "PUT",
                     headers: {
@@ -511,7 +511,7 @@ const Transactions = () => {
         if (route === "cash") {
             const confirmation = window.confirm("Remind!. This order will deleted  from Database permanently")
             if (confirmation) {
-                const url = `http://localhost:5000/api/v1/top-up/cash/${id}`;
+                const url = `https://boosterbd-server.onrender.com/api/v1/top-up/cash/${id}`;
                 fetch(url, {
                     method: "DELETE",
                     headers: {
@@ -561,7 +561,7 @@ const Transactions = () => {
         else if (route === "mobile-banking") {
             const confirmation = window.confirm("Remind!. This order will deleted  from Database permanently")
             if (confirmation) {
-                const url = `http://localhost:5000/api/v1/top-up/mobile-banking/${id}`;
+                const url = `https://boosterbd-server.onrender.com/api/v1/top-up/mobile-banking/${id}`;
                 fetch(url, {
                     method: "DELETE",
                     headers: {
@@ -608,7 +608,7 @@ const Transactions = () => {
         else if (route === "internet-banking") {
             const confirmation = window.confirm("Remind!. This order will deleted  from Database permanently")
             if (confirmation) {
-                const url = `http://localhost:5000/api/v1/top-up/internet-banking/${id}`;
+                const url = `https://boosterbd-server.onrender.com/api/v1/top-up/internet-banking/${id}`;
                 fetch(url, {
                     method: "DELETE",
                     headers: {
@@ -655,7 +655,7 @@ const Transactions = () => {
         else if (route === "international-payment-gateway") {
             const confirmation = window.confirm("Remind!. This order will deleted  from Database permanently")
             if (confirmation) {
-                const url = `http://localhost:5000/api/v1/top-up/international-payment-gateway/${id}`;
+                const url = `https://boosterbd-server.onrender.com/api/v1/top-up/international-payment-gateway/${id}`;
                 fetch(url, {
                     method: "DELETE",
                     headers: {
@@ -805,7 +805,7 @@ const Transactions = () => {
                                             <td className="text-[#464F53]      p-3 truncate">{i + 1}</td>
                                             <td className="text-[#464F53]      p-3 ">{data?.createdAt}</td>
                                             {data?.cashProof ? <td className="text-[#464F53] p-3 ">
-                                                <img className='h-10 w-10 relative' src={`http://localhost:5000/${data?.cashProof}`} alt="imag" />
+                                                <img className='h-10 w-10 relative' src={`https://boosterbd-server.onrender.com/${data?.cashProof}`} alt="imag" />
                                             </td> : <td className="text-[#464F53] p-3 "><img className='h-10 w-10 relative' src='https://avatars.dicebear.com/api/bottts/stefan.svg' alt='custom_avatar' /></td>}
 
                                             <td className="text-[#464F53]      p-3 ">
@@ -882,7 +882,7 @@ const Transactions = () => {
                                         <tr className="flex md:flex-row flex-no-wrap sm:table-row mb-2 sm:mb-0">
                                             <td className="text-[#464F53] font-normal  p-3">{i + 1}</td>
                                             <td className="text-[#464F53] font-normal  p-3">{data.createdAt}</td>
-                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`http://localhost:5000/${data.transactionScreenShot}`} alt='transactionScreenShot' /></td>
+                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`https://boosterbd-server.onrender.com/${data.transactionScreenShot}`} alt='transactionScreenShot' /></td>
 
                                             <td className=" text-[#464F53] font-normal  p-3 ">{data.paymentWith}</td>
                                             <td className="text-[#464F53] font-normal   p-3 truncate">
@@ -963,7 +963,7 @@ const Transactions = () => {
                                         <tr className="flex md:flex-row flex-no-wrap sm:table-row mb-2 sm:mb-0">
                                             <td className="text-[#464F53] font-normal  p-3">{i + 1}</td>
                                             <td className="text-[#464F53] font-normal  p-3">{data.createdAt}</td>
-                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`http://localhost:5000/${data.internetBankingProof}`} alt='internetBankingProof' /></td>
+                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`https://boosterbd-server.onrender.com/${data.internetBankingProof}`} alt='internetBankingProof' /></td>
                                             <td className="text-[#464F53] font-normal   p-3 truncate">
                                                 {data.accountNumber}
                                             </td>
@@ -1039,7 +1039,7 @@ const Transactions = () => {
                                         <tr className="flex md:flex-row flex-no-wrap sm:table-row mb-2 sm:mb-0">
                                             <td className="text-[#464F53] font-normal  p-3">{i + 1}</td>
                                             <td className="text-[#464F53] font-normal  p-3">{data.createdAt}</td>
-                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`http://localhost:5000/${data.internationalGatewayProof}`} alt='internationalGatewayProof' /></td>
+                                            <td className="text-[#464F53] font-normal  p-3"><img className="h-10 w-10 rounded shadow-sm" src={`https://boosterbd-server.onrender.com/${data.internationalGatewayProof}`} alt='internationalGatewayProof' /></td>
                                             <td className=" text-[#464F53] font-normal  p-3 ">{data.paymentGateway}</td>
                                             <td className="text-[#464F53] font-normal   p-3 truncate">
                                                 {data.accountMail}

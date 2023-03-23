@@ -47,7 +47,7 @@ const Modal = ({ selectedOrder, handleApproved, handleCanceled, handleDeleted })
                             </button>
                         </div>
                         <div className="relative flex-auto p-4" data-te-modal-body-ref>
-                            <p className='flex justify-between'>Screen shot (hover for zoom): <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${selectedOrder?.cashProof}`} alt="imag" /></p>
+                            <p className='flex justify-between'>Screen shot (hover for zoom): <img className='h-14 w-14 mb-2 zoom_img' src={`https://boosterbd-server.onrender.com/${selectedOrder?.cashProof}`} alt="imag" /></p>
                             <hr></hr>
                             <p>Date: {selectedOrder?.createdAt}</p>
 
@@ -164,7 +164,7 @@ const Modal = ({ selectedOrder, handleApproved, handleCanceled, handleDeleted })
                             </button>
                         </div>
                         <div className="relative flex-auto p-4" data-te-modal-body-ref>
-                            <p className='flex justify-between'>Screen shot (hover for zoom): <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${selectedOrder?.transactionScreenShot}`} alt="imag" /></p>
+                            <p className='flex justify-between'>Screen shot (hover for zoom): <img className='h-14 w-14 mb-2 zoom_img' src={`https://boosterbd-server.onrender.com/${selectedOrder?.transactionScreenShot}`} alt="imag" /></p>
                             <hr></hr>
                             <p>Date: {selectedOrder?.createdAt}</p>
                             {selectedOrder?.transactionID && <p>Transaction ID : {selectedOrder?.transactionID}</p>}
@@ -288,7 +288,7 @@ const Modal = ({ selectedOrder, handleApproved, handleCanceled, handleDeleted })
                             </button>
                         </div>
                         <div className="relative flex-auto p-4" data-te-modal-body-ref>
-                            <p className='flex justify-between'>Screen shot (hover for zoom): <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${selectedOrder?.internetBankingProof}`} alt="internetBankingProof" /></p>
+                            <p className='flex justify-between'>Screen shot (hover for zoom): <img className='h-14 w-14 mb-2 zoom_img' src={`https://boosterbd-server.onrender.com/${selectedOrder?.internetBankingProof}`} alt="internetBankingProof" /></p>
                             <hr></hr>
                             <p>Date: {selectedOrder?.createdAt}</p>
                             {selectedOrder?.transactionID && <p>Transaction ID : {selectedOrder?.transactionID}</p>}
@@ -411,7 +411,7 @@ const Modal = ({ selectedOrder, handleApproved, handleCanceled, handleDeleted })
                             </button>
                         </div>
                         <div className="relative flex-auto p-4" data-te-modal-body-ref>
-                            <p className='flex justify-between'>Screen shot (hover for zoom): <img className='h-14 w-14 mb-2 zoom_img' src={`http://localhost:5000/${selectedOrder?.internationalGatewayProof}`} alt="internationalGatewayProof" /></p>
+                            <p className='flex justify-between'>Screen shot (hover for zoom): <img className='h-14 w-14 mb-2 zoom_img' src={`https://boosterbd-server.onrender.com/${selectedOrder?.internationalGatewayProof}`} alt="internationalGatewayProof" /></p>
                             <hr></hr>
                             <p>Date: {selectedOrder?.createdAt}</p>
                             {selectedOrder?.transactionID && <p>Transaction ID : {selectedOrder?.transactionID}</p>}

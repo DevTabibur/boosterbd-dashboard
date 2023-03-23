@@ -50,7 +50,7 @@ const Sidebar = () => {
 
 
 
-  console.log('sidebar admin', admin)
+  // console.log('sidebar admin', admin)
 
 
   const userMenu = [
@@ -161,6 +161,10 @@ const Sidebar = () => {
     {
       name: 'verification',
       icon: <MdVerified />,
+    },
+    {
+      name: 'setting',
+      icon: <FiSettings />,
     },
   ]
   // if (isLoading || adminLoading) {
