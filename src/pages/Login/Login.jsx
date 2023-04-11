@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import PhoneInput from 'react-phone-number-input';
 import './Login.css';
-import '../Register/Register.css'
+// import '../Register/Register.css'
 import { Link, useNavigate } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 import Swal from 'sweetalert2';
