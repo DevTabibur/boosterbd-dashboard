@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import Swal from 'sweetalert2';
 
 const useSingleUserByID = (id) => {
   const [singleUser, setSingleUser] = useState([]);
