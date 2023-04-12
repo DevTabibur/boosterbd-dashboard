@@ -94,10 +94,6 @@ const App = () => {
           <Route path="/setting" element={<DashboardLayout><Setting /></DashboardLayout>} />
         </Route>
 
-
-
-
-
         {/* Admin routes */}
         <Route >
 
