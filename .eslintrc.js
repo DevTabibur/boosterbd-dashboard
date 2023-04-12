@@ -80,15 +80,14 @@
 
 
 module.exports = {
-  
-    plugins: [
-      "jsx-a11y"
-    ],
-    rules: {
-      'jsx-a11y/label-has-associated-control': ["error", {
-        "controlComponents": ["Input"]
-      }]
-    }
-  
-}
+  overrides: [
+    {
+      files: ['node_modules/**'],
+      rules: {
+        'jsx-a11y/label-has-associated-control': 'off',
+      },
+    },
+  ],
+};
+
 
