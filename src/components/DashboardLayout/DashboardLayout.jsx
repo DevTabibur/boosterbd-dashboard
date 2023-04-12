@@ -30,7 +30,7 @@ const DashboardLayout = ({ children }) => {
     }, []);
     return (
         <>
-            <div className={currentMode === 'Dark' ? 'white' : 'white'}>
+            <div className={currentMode === 'Darks' ? 'white' : 'white'}>
 
                 <div className="flex relative dark:bg-main-dark-bg ">
                     <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
@@ -45,9 +45,14 @@ const DashboardLayout = ({ children }) => {
                             </button>
                         </TooltipComponent>
                     </div>
-                    {activeMenu ? (
+                    <>
+                        <div className="w-72 fixed sidebar  dark:bg-secondary-dark-bg bg-white ">
+                            <Sidebar />
+                        </div>
+                    </>
+                    {/* {activeMenu ? (
                         <>
-                            <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
+                            <div className="w-72 fixed sidebar  dark:bg-secondary-dark-bg bg-white ">
                                 <Sidebar />
                             </div>
                         </>
@@ -57,7 +62,7 @@ const DashboardLayout = ({ children }) => {
                                 <Sidebar />
                             </div>
                         </>
-                    )}
+                    )} */}
                     <div
                         className={
                             activeMenu
