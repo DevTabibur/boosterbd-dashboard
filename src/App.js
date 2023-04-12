@@ -67,16 +67,17 @@ const App = () => {
       <Routes>
 
         {/* public routes */}
-        {publicRoutes.map(({ path, name, Component }, idx) => (
+        {/* {publicRoutes.map(({ path, name, Component }, idx) => (
           <Route key={idx} path={path} element={<Component />} />
-        ))}
+        ))} */}
 
-        <Route element={<RequireUser></RequireUser>}>
+        <Route >
+          <Route path="/" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
           <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
         </Route>
 
         {/* user routes  */}
-        <Route element={<RequireUser></RequireUser>}>
+        <Route>
           <Route path="/create-ad-account" element={<DashboardLayout><CreateAdAccount /></DashboardLayout>} />
           <Route path="/ad-account-requests-view" element={<DashboardLayout><AdAccountRequestsView /></DashboardLayout>} />
           <Route path="/claim" element={<DashboardLayout><Claim /></DashboardLayout>} />
@@ -98,7 +99,7 @@ const App = () => {
 
 
         {/* Admin routes */}
-        <Route element={<RequireAdmin></RequireAdmin>}>
+        <Route >
 
           <Route path="/transactions" element={<DashboardLayout><Transactions /></DashboardLayout>} />
           <Route path="/business-manager" element={<DashboardLayout><BusinessManager /></DashboardLayout>} />
